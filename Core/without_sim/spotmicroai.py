@@ -265,6 +265,7 @@ class Robot:
         else:
             self.t = self.t + self.fixedTimeStep
 
+        print(self.t)
         quadruped=self.quadruped
         bodyPos, bodyOrn = p.getBasePositionAndOrientation(quadruped)
         linearVel, angularVel = p.getBaseVelocity(quadruped)
@@ -285,7 +286,7 @@ class Robot:
         angles = self.kin.calcIK(self.Lp, self.rot, self.pos)
 
         # [word for sentence in text for word in sentence]
-        # print([ (angle * 180 / 3.1415) for singleFootAngle in angles for angle in singleFootAngle ])
+        print([ (angle * 180 / 3.1415) for singleFootAngle in angles for angle in singleFootAngle ])
 
         for lx, leg in enumerate(['front_left', 'front_right', 'rear_left', 'rear_right']):
             for px, part in enumerate(['shoulder', 'leg', 'foot']):

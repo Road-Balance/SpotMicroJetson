@@ -10,7 +10,9 @@ import time
 import math
 import datetime as dt
 import random
+
 import spotmicroai
+# from without_sim import spotmicroai
 
 from thinputs_keyboard import ThreadedInputsKeyBoard
 from kinematicMotion import KinematicMotion, TrottingGait

@@ -2,6 +2,7 @@ from mpl_toolkits import mplot3d
 import numpy as np
 from math import *
 import random
+
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from mpl_toolkits.mplot3d import Axes3D
@@ -151,5 +152,9 @@ def plotKinematics():
     plt.show()
 
 if __name__=="__main__":
-    # initKinematics()
+    Lp=np.array([[100,-100,100,1], \
+                [100,-100,-100,1], \
+                [-100,-100,100,1], \
+                [-100,-100,-100,1]])
+    initKinematics(Lp)
     plotKinematics()
