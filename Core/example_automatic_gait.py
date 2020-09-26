@@ -11,10 +11,11 @@ import math
 import datetime as dt
 import matplotlib.animation as animation
 import random
+
 from inputs import devices, get_gamepad
 from thinputs_keyboard import ThreadedInputsKeyBoard
 import spotmicroai
-from kinematicMotion import KinematicMotion,TrottingGait
+from kinematicMotion import KinematicMotion, TrottingGait
 from environment import environment
 
 rtime=time.time()
@@ -111,6 +112,8 @@ while True:
     # wait 3 seconds to start
     if d>3:
         robot.feetPosition(trotting.positions(d-3))
+        # print(motion.step())
+        # robot.feetPosition(motion.step())
     else:
         robot.feetPosition(Lp)
     #roll=-xr

@@ -1,7 +1,6 @@
 import time
 import numpy as np
 import math
-from kinematics import Kinematic
 import pybullet as p
 
 class KinematicLegMotion:

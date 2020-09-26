@@ -42,7 +42,7 @@ class Robot:
         # Parameters for Servos - still wrong
         self.kp = 0.045#0.012
         self.kd = .4#.2
-        self.maxForce = 12.5
+        self.maxForce = 25.0
 
         self.physId = p.connect(p.SHARED_MEMORY)
         if (self.physId < 0):
@@ -282,6 +282,8 @@ class Robot:
             p.resetDebugVisualizerCamera(0.7,self.t*10,-5,bodyPos)
         # Calculate Angles with the input of FeetPos,BodyRotation and BodyPosition
         angles = self.kin.calcIK(self.Lp, self.rot, self.pos)
+        self.kin.initKinematics()
+        print(angles)
 
         for lx, leg in enumerate(['front_left', 'front_right', 'rear_left', 'rear_right']):
             for px, part in enumerate(['shoulder', 'leg', 'foot']):
