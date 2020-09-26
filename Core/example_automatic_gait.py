@@ -11,9 +11,9 @@ import math
 import datetime as dt
 import matplotlib.animation as animation
 import random
-
-from inputs import devices, get_gamepad
-from thinputs_keyboard import ThreadedInputsKeyBoard
+from inputs import devices, get_key
+# from thinputs_keyboard import ThreadedInputsKeyBoard
+import getch
 import spotmicroai
 from kinematicMotion import KinematicMotion, TrottingGait
 from environment import environment
@@ -47,7 +47,7 @@ walk=False
 
 # Gamepad Initialisation
 # Dictionary of game controller buttons we want to include.
-koeyboardInputs = {'ABS_X': 128, 'ABS_RZ': 127, 'ABS_Y': 126, 'ABS_Z': 125,
+keyboardInputs = {'ABS_X': 128, 'ABS_RZ': 127, 'ABS_Y': 126, 'ABS_Z': 125,
                  'BTN_TIGGER': 124, 'BTN_THUMB': 123, 'BTN_THUMB2': 122, 'BTN_TOP': 121, # right side of gamepad
                  'ABS_HAT0X': 120, 'ABS_HAT0Y': 119, # left
                  'BTN_TOP2': 118, 'BTN_BASE': 117, # left top
@@ -61,19 +61,23 @@ def resetPose():
 
 def handleGamepad():
     # TODO: globals are bad
+
     global joy_x, joy_z, joy_y, joy_rz, walk
-    commandInput, commandValue = gamepad.read()
-    # Gamepad button command filter
-    if commandInput == 'ABS_X':
-        joy_x = commandValue
-    if commandInput == 'ABS_Y':
-        joy_y = commandValue
-    if commandInput == 'ABS_Z':
-        joy_z = commandValue
-    if commandInput == 'ABS_RZ':
-        joy_rz = commandValue
-    if commandInput == 'BTN_TOP2':
-        resetPose()
+
+    for _ in main():    # infinite loop nr. 2
+        char = getch.getche()
+        print(char + " : " + char)
+        # Gamepad button command filter
+        if commandInput == 'ABS_X':
+            joy_x = commandValue
+        if commandInput == 'ABS_Y':
+            joy_y = commandValue
+        if commandInput == 'ABS_Z':
+            joy_z = commandValue
+        if commandInput == 'ABS_RZ':
+            joy_rz = commandValue
+        if commandInput == 'BTN_TOP2':
+            resetPose()
 
 
 
@@ -87,40 +91,49 @@ resetPose()
 
 # Initialise the gamepad object using the gamepad inputs Python package
 # gamepad = ThreadedInputsKeyBoard()
-# for gamepadInput in koeyboardInputs:
-#     gamepad.append_command(gamepadInput, koeyboardInputs[gamepadInput])
+# for gamepadInput in keyboardInputs:
+#     gamepad.append_command(gamepadInput, keyboardInputs[gamepadInput])
 # gamepad.start()
 
 trotting=TrottingGait()
 
+def main():
+    s=False
+    while True:
 
-s=False
-while True:
+        bodyPos=robot.getPos()
+        bodyOrn,_,_=robot.getIMU()
+        xr,yr,_= p.getEulerFromQuaternion(bodyOrn)
+        distance=math.sqrt(bodyPos[0]**2+bodyPos[1]**2)
+        if distance>50:
+            robot.resetBody()
+    
+        ir=xr/(math.pi/180)
 
-    bodyPos=robot.getPos()
-    bodyOrn,_,_=robot.getIMU()
-    xr,yr,_= p.getEulerFromQuaternion(bodyOrn)
-    distance=math.sqrt(bodyPos[0]**2+bodyPos[1]**2)
-    if distance>50:
-        robot.resetBody()
-   
-    ir=xr/(math.pi/180)
-    # handleGamepad()
-    d=time.time()-rtime
-    height = p.readUserDebugParameter(IDheight)
+        # handleGamepad()
+        
+        d=time.time()-rtime
+        height = p.readUserDebugParameter(IDheight)
 
-    # wait 3 seconds to start
-    if d>3:
-        robot.feetPosition(trotting.positions(d-3))
-        # print(motion.step())
-        # robot.feetPosition(motion.step())
-    else:
-        robot.feetPosition(Lp)
-    #roll=-xr
-    roll=0
-    robot.bodyRotation((roll,math.pi/180*((joy_x)-128)/3,-(1/256*joy_y-0.5)))
-    bodyX=50+yr*10
-    robot.bodyPosition((bodyX, 40+height, -ir))
-    robot.step()
+        # wait 3 seconds to start
+        if d>3:
+            robot.feetPosition(trotting.positions(d-3))
+            # print(motion.step())
+            # robot.feetPosition(motion.step())
+        else:
+            robot.feetPosition(Lp)
+        #roll=-xr
+        roll=0
+        robot.bodyRotation((roll,math.pi/180*((joy_x)-128)/3,-(1/256*joy_y-0.5)))
+        bodyX=50+yr*10
+        robot.bodyPosition((bodyX, 40+height, -ir))
+        robot.step()
 
-# gamepad.stop()
+
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception as e:
+        print(e)
+    finally:
+        print("Done... :)")

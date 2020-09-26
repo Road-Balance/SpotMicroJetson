@@ -105,6 +105,7 @@ class Robot:
         self.ref_time = time.time()
         p.getCameraImage(320,200)#160,100)
         p.resetDebugVisualizerCamera(1,85.6,0,[-0.61,0.12,0.25])
+
         # Camera Settings
         fov, aspect, nearplane, farplane = 90, 1.3, .0111, 100
         self.projection_matrix = p.computeProjectionMatrixFOV(fov, aspect, nearplane, farplane)
@@ -175,7 +176,6 @@ class Robot:
             jointNameToId[jointInfo[1].decode('UTF-8')] = jointInfo[0]
         return jointNameToId
 
-    
     def addInfoText(self,bodyPos,bodyEuler,linearVel,angularVel):
         # TODO: use replacementId instead of deleting the old views. seems to have memleak issues?
         if not self.debug:
@@ -280,10 +280,12 @@ class Robot:
             return False
         if self.rotateCamera:
             p.resetDebugVisualizerCamera(0.7,self.t*10,-5,bodyPos)
+        
         # Calculate Angles with the input of FeetPos,BodyRotation and BodyPosition
         angles = self.kin.calcIK(self.Lp, self.rot, self.pos)
-        self.kin.initKinematics()
-        print(angles)
+
+        # [word for sentence in text for word in sentence]
+        # print([ (angle * 180 / 3.1415) for singleFootAngle in angles for angle in singleFootAngle ])
 
         for lx, leg in enumerate(['front_left', 'front_right', 'rear_left', 'rear_right']):
             for px, part in enumerate(['shoulder', 'leg', 'foot']):

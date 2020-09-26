@@ -150,5 +150,5 @@ def plotKinematics():
     plt.show()
 
 if __name__=="__main__":
-    initKinematics()
+    # initKinematics()
     plotKinematics()
