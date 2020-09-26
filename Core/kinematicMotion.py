@@ -78,7 +78,7 @@ class TrottingGait:
         self.t1=510
         self.t2=00
         self.t3=185
-        self.Sl=-124
+        self.Sl=0.0
         self.Sw=0
         self.Sh=60
         self.Sa=0
@@ -132,6 +132,7 @@ class TrottingGait:
             curLp=endLp+diffLp*tp
             curLp[1]+=self.Sh*math.sin(math.pi*tp)
             return curLp
+            
     def stepLength(self,len):
         self.Sl=len
 

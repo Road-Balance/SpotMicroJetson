@@ -12,7 +12,7 @@ import datetime as dt
 import matplotlib.animation as animation
 import random
 from inputs import devices, get_gamepad
-from thinputs import ThreadedInputs
+from thinputs_keyboard import ThreadedInputsKeyBoard
 import spotmicroai
 from kinematicMotion import KinematicMotion,TrottingGait
 from environment import environment
@@ -46,7 +46,7 @@ walk=False
 
 # Gamepad Initialisation
 # Dictionary of game controller buttons we want to include.
-gamepadInputs = {'ABS_X': 128, 'ABS_RZ': 127, 'ABS_Y': 126, 'ABS_Z': 125,
+koeyboardInputs = {'ABS_X': 128, 'ABS_RZ': 127, 'ABS_Y': 126, 'ABS_Z': 125,
                  'BTN_TIGGER': 124, 'BTN_THUMB': 123, 'BTN_THUMB2': 122, 'BTN_TOP': 121, # right side of gamepad
                  'ABS_HAT0X': 120, 'ABS_HAT0Y': 119, # left
                  'BTN_TOP2': 118, 'BTN_BASE': 117, # left top
@@ -60,7 +60,7 @@ def resetPose():
 
 def handleGamepad():
     # TODO: globals are bad
-    global joy_x, joy_z, joy_y, joy_rz,walk
+    global joy_x, joy_z, joy_y, joy_rz, walk
     commandInput, commandValue = gamepad.read()
     # Gamepad button command filter
     if commandInput == 'ABS_X':
@@ -85,10 +85,11 @@ motion=KinematicMotion(Lp)
 resetPose()
 
 # Initialise the gamepad object using the gamepad inputs Python package
-gamepad = ThreadedInputs()
-for gamepadInput in gamepadInputs:
-    gamepad.append_command(gamepadInput, gamepadInputs[gamepadInput])
-gamepad.start()
+# gamepad = ThreadedInputsKeyBoard()
+# for gamepadInput in koeyboardInputs:
+#     gamepad.append_command(gamepadInput, koeyboardInputs[gamepadInput])
+# gamepad.start()
+
 trotting=TrottingGait()
 
 
@@ -103,7 +104,7 @@ while True:
         robot.resetBody()
    
     ir=xr/(math.pi/180)
-    handleGamepad()
+    # handleGamepad()
     d=time.time()-rtime
     height = p.readUserDebugParameter(IDheight)
 
@@ -118,4 +119,5 @@ while True:
     bodyX=50+yr*10
     robot.bodyPosition((bodyX, 40+height, -ir))
     robot.step()
-gamepad.stop()
+
+# gamepad.stop()
