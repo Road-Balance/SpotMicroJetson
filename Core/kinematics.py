@@ -139,13 +139,11 @@ class Kinematic:
         self.legIK(np.linalg.inv(Tlb).dot(Lp[2])),
         self.legIK(Ix.dot(np.linalg.inv(Trb).dot(Lp[3])))])
 
-def initKinematics():
+def initKinematics(Lp):
     setupView(200).view_init(elev=12., azim=28)
-    Lp=np.array([[100,-100,100,1],[100,-100,-100,1],[-100,-100,100,1],[-100,-100,-100,1]])
     moduleKinematics = Kinematic()
     moduleKinematics.drawRobot(Lp,(0,0,0),(0,0,0))
     
-    print(moduleKinematics.thetas)
     return moduleKinematics.thetas
 
 def plotKinematics():
