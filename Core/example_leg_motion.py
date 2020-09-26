@@ -11,10 +11,10 @@ import math
 import datetime as dt
 import matplotlib.animation as animation
 import random
-from inputs import devices, get_gamepad
-from thinputs import ThreadedInputs
+from inputs import devices, get_key
+from thinputs_keyboard import ThreadedInputsKeyBoard
 import spotmicroai
-from kinematicMotion import KinematicMotion
+from kinematicMotion import KinematicMotion, TrottingGait
 
 robot=spotmicroai.Robot(False,False)
 
@@ -45,11 +45,14 @@ walk=False
 
 # Gamepad Initialisation
 # Dictionary of game controller buttons we want to include.
-gamepadInputs = {'ABS_X': 128, 'ABS_RZ': 127, 'ABS_Y': 126, 'ABS_Z': 125,
-                 'BTN_TIGGER': 124, 'BTN_THUMB': 123, 'BTN_THUMB2': 122, 'BTN_TOP': 121, # right side of gamepad
-                 'ABS_HAT0X': 120, 'ABS_HAT0Y': 119, # left
-                 'BTN_TOP2': 118, 'BTN_BASE': 117, # left top
-                 'BTN_PINKIE': 116, 'BTN_BASE2': 115 # right top
+gamepadInputs = {
+                    'ABS_X': 128, 'ABS_RZ': 127, 'ABS_Y': 126, 'ABS_Z': 125,
+                    'BTN_TIGGER': 124, 'BTN_THUMB': 123, 'BTN_THUMB2': 122, 'BTN_TOP': 121, # right side of gamepad
+                    'ABS_HAT0X': 120, 'ABS_HAT0Y': 119, # left
+                    'BTN_TOP2': 118, 'BTN_BASE': 117, # left top
+                    'BTN_PINKIE': 116, 'BTN_BASE2': 115, # right top
+                    'SPACE': 57,
+                    'UPPER_ARROW': 200, 'RIGHT_ARROW': 205, 'DOWN_ARROW': 208, 'LEFT_ARROW': 203
                  }
 
 def resetPose():
@@ -120,7 +123,7 @@ motion=KinematicMotion(Lp)
 resetPose()
 
 # Initialise the gamepad object using the gamepad inputs Python package
-gamepad = ThreadedInputs()
+gamepad = ThreadedInputsKeyBoard()
 for gamepadInput in gamepadInputs:
     gamepad.append_command(gamepadInput, gamepadInputs[gamepadInput])
 gamepad.start()
@@ -131,7 +134,7 @@ while True:
 
     stepHeight = p.readUserDebugParameter(IDstepHeight)
     spurWidth = p.readUserDebugParameter(IDspurWidth)
-    #stepLength = p.readUserDebugParameter(IDstepLength)
+    stepLength = p.readUserDebugParameter(IDstepLength)
     speed1=p.readUserDebugParameter(IDspeed1)
     speed2=p.readUserDebugParameter(IDspeed2)
     speed3=p.readUserDebugParameter(IDspeed3)

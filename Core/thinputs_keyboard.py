@@ -5,16 +5,16 @@ from threading import Thread
 import queue
 import time
 
-from inputs import get_gamepad
+from inputs import get_key
 
 
-class ThreadedInputs:
+class ThreadedInputsKeyBoard:
 	NOMATCH = 'No Match'
 	
-	def __init__(self):
+	def __init__(self, inputDict={}):
 		# Initialise gamepad command dictionary.
 		# Add gamepad commands using the append method before executing the start method.
-		self.gamepadInputs = {}
+		self.gamepadInputs = inputDict
 		self.lastEventCode = self.NOMATCH
 		# Initialise the thread status flag
 		self.stopped = False
@@ -32,7 +32,7 @@ class ThreadedInputs:
 			if self.stopped:
 				return
 			# Code execution stops at the following line until a gamepad event occurs.
-			events = get_gamepad()
+			events = get_key()
 			for event in events:
 				event_test = self.gamepadInputs.get(event.code, self.NOMATCH)
 				if event_test != self.NOMATCH:

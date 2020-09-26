@@ -36,7 +36,7 @@
     </inertial>
   </link>
   <!-- Lidar Backpack -->
-  <link name="lidar_link">
+  <!-- <link name="lidar_link">
     <visual>
       <geometry>
         <mesh filename="../STL/lidar/rplidar_main.STL" scale="0.001 0.001 0.001"/>
@@ -59,7 +59,7 @@
     <parent link="base_link"/>
     <child link="lidar_link"/>
     <origin xyz="0 0 0.035"/>
-  </joint>
+  </joint> -->
   <link name="rear_link">
     <visual>
       <geometry>
