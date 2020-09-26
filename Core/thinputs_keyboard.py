@@ -4,8 +4,9 @@ from time import sleep
 from threading import Thread
 import queue
 import time
+import getch
 
-from inputs import get_key
+# from inputs import get_key
 
 
 class ThreadedInputsKeyBoard:
@@ -22,6 +23,7 @@ class ThreadedInputsKeyBoard:
 
 	def start(self):
 		# Start the thread to poll gamepad event updates
+		print("\nGetch Thread Starts\n")
 		t = Thread(target=self.gamepad_update, args=())
 		t.daemon = True
 		t.start()
@@ -30,15 +32,13 @@ class ThreadedInputsKeyBoard:
 		while True:
 			# Should the thread exit?
 			if self.stopped:
+				print("\nGetch Thread Ends...")
 				return
 			# Code execution stops at the following line until a gamepad event occurs.
-			events = get_key()
-			for event in events:
-				event_test = self.gamepadInputs.get(event.code, self.NOMATCH)
-				if event_test != self.NOMATCH:
-					self.gamepadInputs[event.code] = event.state
-					self.lastEventCode = event.code
-					self.q.put(event.code)
+			char = getch.getch()
+			print("input : ", char)
+			self.lastEventCode = char
+			self.q.put(char)
 
 	def read(self):
 		# Return the latest command from gamepad event
@@ -46,8 +46,7 @@ class ThreadedInputsKeyBoard:
 			newCommand = self.q.get()
 			while not self.q.empty():
 				trashBin = self.q.get()
-	
-			return newCommand, self.gamepadInputs[newCommand]
+			return newCommand #, self.gamepadInputs[newCommand]
 		else:
 			return self.NOMATCH, 0
 
@@ -75,3 +74,12 @@ class ThreadedInputsKeyBoard:
 			return self.gamepadInputs[commandKey]
 		else:
 			return None
+
+if __name__ == "__main__":
+	keyboard = ThreadedInputsKeyBoard()
+	keyboard.start()
+	while 1:
+		commandValue = keyboard.read()
+		if commandValue == "q":
+			keyboard.stop()
+			break

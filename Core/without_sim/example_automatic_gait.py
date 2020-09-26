@@ -3,19 +3,22 @@ Simulation of SpotMicroAI and it's Kinematics
 Use a keyboard to see how it works
 Use keyboard-Button to switch betweek walk on static-mode
 """
-
-import matplotlib.animation as animation
+import pybullet as p
 import numpy as np
+import pybullet_data
 import time
 import math
 import datetime as dt
+import matplotlib.animation as animation
 import random
+from thinputs_keyboard import ThreadedInputsKeyBoard
 import spotmicroai
 
-from thinputs_keyboard import ThreadedInputsKeyBoard
 from kinematicMotion import KinematicMotion, TrottingGait
+from environment import environment
 
 rtime=time.time()
+env=environment()
 
 def reset():
     global rtime
@@ -35,9 +38,11 @@ speed3=436
 spurWidth=robot.W/2+20
 stepLength=0
 stepHeight=72
-
-# Initial End point X Value for Front legs 
 iXf=120
+iXb=-132
+IDspurWidth = p.addUserDebugParameter("spur width", 0, robot.W, spurWidth)
+IDstepHeight = p.addUserDebugParameter("step height", 0, 150, stepHeight)
+
 
 walk=False
 
@@ -72,8 +77,8 @@ def handleKeyboard():
     if commandValue == 'q':
         resetPose()
 
-# robot height, 40 default
-# IDheight = p.addUserDebugParameter("height", -40, 90, 40)
+IDheight = p.addUserDebugParameter("height", -40, 90, 40)
+# IDstepLength = p.addUserDebugParameter("step length", -150, 150, 0.0)
 
 Lp = np.array([[iXf, -100, spurWidth, 1], [iXf, -100, -spurWidth, 1],
 [-50, -100, spurWidth, 1], [-50, -100, -spurWidth, 1]])
@@ -88,25 +93,26 @@ resetPose()
 trotting=TrottingGait()
 
 def main():
-
-    s = False
-
+    s=False
     while True:
-        xr = 0.0
-        yr = 0.0
 
-        # robot.resetBody()
+        bodyPos=robot.getPos()
+        bodyOrn,_,_=robot.getIMU()
+        xr,yr,_= p.getEulerFromQuaternion(bodyOrn)
+        distance=math.sqrt(bodyPos[0]**2+bodyPos[1]**2)
+        if distance>50:
+            robot.resetBody()
     
         ir=xr/(math.pi/180)
 
         # handleKeyboard()
         
         d=time.time()-rtime
-        height = 40 #p.readUserDebugParameter(IDheight)
+        height = p.readUserDebugParameter(IDheight)
 
         # wait 3 seconds to start
         if d>3:
-            # trotting.positions(d-3) - position of end points for each legs
+            print(trotting.positions(d-3))
             robot.feetPosition(trotting.positions(d-3))
         else:
             robot.feetPosition(Lp)

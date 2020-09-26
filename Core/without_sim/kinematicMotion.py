@@ -1,6 +1,7 @@
 import time
 import numpy as np
 import math
+import pybullet as p
 
 class KinematicLegMotion:
 
@@ -82,9 +83,20 @@ class TrottingGait:
         self.Sa=0
         self.Spf=87
         self.Spr=77
-        self.Fo=120
-        self.Ro=50
 
+        self.IDspurFront= p.addUserDebugParameter("spur front", 20, 150, self.Spf)
+        self.IDspurRear= p.addUserDebugParameter("spur rear", 20, 150, self.Spr)
+        self.IDstepLength = p.addUserDebugParameter("step length", -150, 150, self.Sl)
+        self.IDstepWidth = p.addUserDebugParameter("step width", -150, 150, self.Sw)
+        self.IDstepHeight = p.addUserDebugParameter("step height", 0, 150, self.Sh)
+        self.IDstepAlpha = p.addUserDebugParameter("step alpha", -90, 90, self.Sa)
+        self.IDt0 = p.addUserDebugParameter("t0", 0, 1000, self.t0)
+        self.IDt1 = p.addUserDebugParameter("t1", 0, 1000, self.t1)
+        self.IDt2 = p.addUserDebugParameter("t2", 0, 1000, self.t2)
+        self.IDt3 = p.addUserDebugParameter("t3", 0, 1000, self.t3)
+        self.IDfrontOffset = p.addUserDebugParameter("front Offset", 0,200, 120)
+        self.IDrearOffset = p.addUserDebugParameter("rear Offset", 0,200, 50)
+        
         self.Rc=[-50,0,0,1] # rotation center
 
 
@@ -125,16 +137,16 @@ class TrottingGait:
         self.Sl=len
 
     def positions(self,t):
-        spf=self.Spf
-        spr=self.Spr
-        self.Sh=60.0
-        self.Sl=0.0
-        self.Sw=0.0
-        self.Sa=0.0
-        self.t0=0.0
-        self.t1=510.0
-        self.t2=0.0
-        self.t3=185.0
+        spf= p.readUserDebugParameter(self.IDspurFront)
+        spr= p.readUserDebugParameter(self.IDspurRear)
+        self.Sh=p.readUserDebugParameter(self.IDstepHeight)
+        self.Sl=p.readUserDebugParameter(self.IDstepLength)
+        self.Sw=p.readUserDebugParameter(self.IDstepWidth)
+        self.Sa=p.readUserDebugParameter(self.IDstepAlpha)
+        self.t0=p.readUserDebugParameter(self.IDt0)
+        self.t1=p.readUserDebugParameter(self.IDt1)
+        self.t2=p.readUserDebugParameter(self.IDt2)
+        self.t3=p.readUserDebugParameter(self.IDt3)
         Tt=(self.t0+self.t1+self.t2+self.t3)
         Tt2=Tt/2
         rd=0 # rear delta - unused - maybe stupid
@@ -142,8 +154,8 @@ class TrottingGait:
         t2=(t*1000-Tt2)%Tt
         rtd=(t*1000-rd)%Tt # rear time delta
         rt2=(t*1000-Tt2-rd)%Tt
-        Fx=self.Fo
-        Rx=-1*self.Ro
+        Fx=p.readUserDebugParameter(self.IDfrontOffset)
+        Rx=-p.readUserDebugParameter(self.IDrearOffset)
         Fy=-100
         Ry=-100
         r=np.array([self.calcLeg(td,Fx,Fy,spf),self.calcLeg(t2,Fx,Fy,-spf),self.calcLeg(rt2,Rx,Ry,spr),self.calcLeg(rtd,Rx,Ry,-spr)])

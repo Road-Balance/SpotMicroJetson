@@ -4,3 +4,4 @@ matplotlib==3.3.2
 numpy==1.19.2
 pybullet==3.0.4
 inputs==0.5
+getch
