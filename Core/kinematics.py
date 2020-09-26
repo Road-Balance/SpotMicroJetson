@@ -96,7 +96,10 @@ class Kinematic:
         Ix=np.array([[-1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]])
         self.drawLegPoints([Tl.dot(x) for x in self.calcLegPoints(self.legIK(np.linalg.inv(Tl).dot(Ll)))])
         self.drawLegPoints([Tr.dot(Ix.dot(x)) for x in self.calcLegPoints(self.legIK(Ix.dot(np.linalg.inv(Tr).dot(Lr))))])
-        
+        print(self.legIK(np.linalg.inv(Tl).dot(Ll)))
+        print(self.legIK(Ix.dot(np.linalg.inv(Tr).dot(Lr))))
+
+
     def drawRobot(self,Lp,angles,center):
         (omega,phi,psi)=angles
         (xm,ym,zm)=center
