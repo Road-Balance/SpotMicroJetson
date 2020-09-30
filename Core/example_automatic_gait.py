@@ -11,8 +11,10 @@ import math
 import datetime as dt
 import random
 
+import kinematics as kn
 import spotmicroai
 # from without_sim import spotmicroai
+
 
 from thinputs_keyboard import ThreadedInputsKeyBoard
 from kinematicMotion import KinematicMotion, TrottingGait
@@ -40,6 +42,9 @@ stepHeight=72
 
 # Initial End point X Value for Front legs 
 iXf=120
+
+# for animation
+jointAngles = []
 
 walk=False
 
@@ -117,8 +122,15 @@ def main():
         robot.bodyRotation((roll,math.pi/180*((joy_x)-128)/3,-(1/256*joy_y-0.5)))
         bodyX=50+yr*10
         robot.bodyPosition((bodyX, 40+height, -ir))
-        robot.step()
 
+        jointAngles = robot.getAngle()
+        print(jointAngles)
+        
+        if len(jointAngles):
+            kn.initFK(jointAngles)
+            kn.plotKinematics()
+
+        robot.step()
 
 if __name__ == "__main__":
     try:

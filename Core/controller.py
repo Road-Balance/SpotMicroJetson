@@ -25,14 +25,11 @@ class Controllers:
         self.SIM_LEG_THETA1 = 0
         self.SIM_LEG_THETA2 = 1
         self.SIM_LEG_THETA3 = 2
-        
-
-        
 
 
 if __name__=="__main__":
     legEndpoints=np.array([[100,-100,87.5,1],[100,-100,-87.5,1],[-100,-100,87.5,1],[-100,-100,-87.5,1]])
-    thetas = kn.initKinematics(legEndpoints) #radians
+    thetas = kn.initIK(legEndpoints) #radians
 
     print("Initializing Servos")
     i2c_bus0=(busio.I2C(board.SCL_1, board.SDA_1))
