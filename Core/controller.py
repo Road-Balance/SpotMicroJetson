@@ -38,6 +38,7 @@ if __name__=="__main__":
     i2c_bus0=(busio.I2C(board.SCL_1, board.SDA_1))
     print("Initializing ServoKit")
     kit = ServoKit(channels=16, i2c=i2c_bus0, address=0x40)
+    kit_2 = ServoKit(channels=16, i2c=i2c_bus0, address=0x41)
     print("Done initializing")
 
 
@@ -82,7 +83,10 @@ if __name__=="__main__":
     for x in range(len(val_list)):
         val_list[x] = int(val_list[x])
         print(val_list[x])
-        kit.servo[x].angle = val_list[x]
+        if x < 6:
+            kit_2.servo[x].angle = val_list[x]
+        else:
+            kit.servo[x].angle = val_list[x]
 
     #kit.servo[num].angle=degree
 
