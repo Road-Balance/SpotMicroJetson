@@ -126,14 +126,15 @@ def main():
         # Get current Angles for each motors 
         jointAngles = robot.getAngle()
         print(jointAngles)
-
-        # Handle Real Actuators
-        controller.servoRotate(jointAngles)
         
         # First Step doesn't contains jointAngles
         if len(jointAngles):
-            kn.initFK(jointAngles)
-            kn.plotKinematics()
+            # Handle Real Actuators
+            controller.servoRotate(jointAngles)
+            
+            # # Debugging
+            # kn.initFK(jointAngles)
+            # kn.plotKinematics()
 
         robot.step()
 

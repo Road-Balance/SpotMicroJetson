@@ -1,5 +1,8 @@
-numpy==1.15.4
 numpy-stl==2.3.2
+matplotlib==3.3.2
+numpy==1.19.2
+inputs==0.5
+getch
 adafruit-circuitpython-servokit
 adafruit_pca9685
 Adafruit-SSD1306

@@ -2,7 +2,7 @@
 SpotMicroAI Simulation
 """
 
-import pybullet_data
+# import pybullet_data
 import time
 
 # pybullet fully eliminated!!!
