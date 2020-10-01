@@ -55,32 +55,32 @@ class Controllers:
         self.getRadianAngles(La)
 
         #FL Lower
-        self._val_list[0] -= self._thetas[0][2]
+        self._val_list[0] = self._servo_offsets[0] - self._thetas[0][2]
         #FL Upper
-        self._val_list[1] -= self._thetas[0][1]    
+        self._val_list[1] = self._servo_offsets[1] - self._thetas[0][1]    
         #FL Shoulder
-        self._val_list[2] += self._thetas[0][0]
+        self._val_list[2] = self._servo_offsets[2] + self._thetas[0][0]
 
         #FR Lower
-        self._val_list[3] += self._thetas[1][2]
+        self._val_list[3] = self._servo_offsets[3] + self._thetas[1][2]
         #FR Upper
-        self._val_list[4] += self._thetas[1][1]    
+        self._val_list[4] = self._servo_offsets[4] + self._thetas[1][1]    
         #FR Shoulder
-        self._val_list[5] -= self._thetas[1][0]
+        self._val_list[5] = self._servo_offsets[5] - self._thetas[1][0]
 
         #BL Lower
-        self._val_list[6] -= self._thetas[2][2]
+        self._val_list[6] = self._servo_offsets[6] - self._thetas[2][2]
         #BL Upper
-        self._val_list[7] -= self._thetas[2][1]    
+        self._val_list[7] = self._servo_offsets[7] - self._thetas[2][1]    
         #BL Shoulder, Formula flipped from the front
-        self._val_list[8] -= self._thetas[2][0]
+        self._val_list[8] = self._servo_offsets[8] - self._thetas[2][0]
 
         #BR Lower. 
-        self._val_list[9] += self._thetas[3][2]
+        self._val_list[9] = self._servo_offsets[9] + self._thetas[3][2]
         #BR Upper
-        self._val_list[10] += self._thetas[3][1]    
+        self._val_list[10] = self._servo_offsets[10] + self._thetas[3][1]    
         #BR Shoulder, Formula flipped from the front
-        self._val_list[11] += self._thetas[3][0]     
+        self._val_list[11] = self._servo_offsets[11] + self._thetas[3][0]     
 
     def getServoAngles(self):
         return self._val_list
