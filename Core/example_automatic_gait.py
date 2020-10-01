@@ -13,8 +13,9 @@ import random
 
 import kinematics as kn
 import spotmicroai
-# from without_sim import spotmicroai
+import servo_controller
 
+# from without_sim import spotmicroai
 
 from thinputs_keyboard import ThreadedInputsKeyBoard
 from kinematicMotion import KinematicMotion, TrottingGait
@@ -26,6 +27,7 @@ def reset():
     rtime=time.time()    
 
 robot=spotmicroai.Robot(False,False,reset)
+controller = servo_controller.Controllers()
 
 # TODO: Needs refactoring
 speed1=240
@@ -105,11 +107,9 @@ def main():
         # robot.resetBody()
     
         ir=xr/(math.pi/180)
-
-        # handleKeyboard()
         
         d=time.time()-rtime
-        height = 40 #p.readUserDebugParameter(IDheight)
+        height = 40 # p.readUserDebugParameter(IDheight)
 
         # wait 3 seconds to start
         if d>3:
@@ -123,9 +123,14 @@ def main():
         bodyX=50+yr*10
         robot.bodyPosition((bodyX, 40+height, -ir))
 
+        # Get current Angles for each motors 
         jointAngles = robot.getAngle()
         print(jointAngles)
+
+        # Handle Real Actuators
+        controller.servoRotate(jointAngles)
         
+        # First Step doesn't contains jointAngles
         if len(jointAngles):
             kn.initFK(jointAngles)
             kn.plotKinematics()

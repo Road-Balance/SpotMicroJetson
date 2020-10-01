@@ -137,7 +137,7 @@ class Kinematic:
         self.drawLegPair(Tlf,Trf,Lp[0],Lp[1], self.LEG_FRONT)
         self.drawLegPair(Tlb,Trb,Lp[2],Lp[3], self.LEG_BACK)
 
-    # La = Leg Angles
+    # La: Leg Angles
     def drawRobotbyAngles(self,La,angles,center):
         Ix=np.array([[-1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]])
         (omega,phi,psi)=angles
@@ -152,11 +152,11 @@ class Kinematic:
         # draw body points with body edges
         plt.plot([x[0] for x in CPs],[x[2] for x in CPs],[x[1] for x in CPs], 'bo-', lw=2)
 
-        # LEG_FRONT
+        # Draw LEG_FRONT
         self.drawLegPoints([Tlf.dot(x) for x in self.calcLegPoints(tuple(La[0]))])
         self.drawLegPoints([Trf.dot(Ix.dot(x)) for x in self.calcLegPoints(tuple(La[1]))])
 
-        # LEG_BACK
+        # Draw LEG_BACK
         self.drawLegPoints([Tlb.dot(x) for x in self.calcLegPoints((tuple(La[2])))])
         self.drawLegPoints([Trb.dot(Ix.dot(x)) for x in self.calcLegPoints(tuple(La[3]))])
 
@@ -201,8 +201,6 @@ def animationKinecatics(Lp):
 def plotKinematics():
     plt.show()
 
-
-
 if __name__=="__main__":
     Lp=np.array([[100,-100,100,1], \
                 [100,-100,-100,1], \
@@ -229,7 +227,7 @@ if __name__=="__main__":
     #         [0,   0,  0 ], \
     #         [0,   0,  0]]
 
-    # For One Pose Visualization
+    # Pose Visualization
 
     # initIK(Lp)
     # plotKinematics()
