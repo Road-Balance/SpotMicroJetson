@@ -1,8 +1,8 @@
 import kinematics as kn
 import numpy as np
-# from adafruit_servokit import ServoKit
-# import board
-# import busio
+from adafruit_servokit import ServoKit
+import board
+import busio
 import time
 
 class Controllers:
