@@ -1,12 +1,11 @@
-numpy-stl==2.3.2
-matplotlib==3.3.2
-numpy==1.19.2
-inputs==0.5
+numpy-stl
+matplotlib
+numpy
+inputs
 getch
 adafruit-circuitpython-servokit
 adafruit_pca9685
 Adafruit-SSD1306
 adafruit-circuitpython-pca9685
 smbus
-luma.core
 psutil

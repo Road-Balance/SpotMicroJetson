@@ -90,6 +90,11 @@ class Controllers:
 
         for x in range(len(self._val_list)):
             if x < 6:
+                # sweep = range(current_value, aim_value, -1/+1)
+                # for degree in sweep :
+                #     self._kit2.servo[x].angle = degree
+                #     time.sleep(0.01)
+                print(self._kit2.servo[x].angle)
                 self._kit2.servo[x].angle = self._val_list[x]
             else:
                 self._kit.servo[x].angle = self._val_list[x]

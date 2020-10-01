@@ -137,6 +137,7 @@ def main():
             # kn.plotKinematics()
 
         robot.step()
+        # time.sleep(0.2)
 
 if __name__ == "__main__":
     try:
