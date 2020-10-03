@@ -2,12 +2,15 @@
 SpotMicroAI Simulation
 """
 
+import sys
+sys.path.append("..")
+
 import pybullet_data
 import time
 import pybullet as p
 import math
 import numpy as np
-from kinematics import Kinematic
+from Kinematics.kinematics import Kinematic
 from enum import Enum
 
 class RobotState(Enum):

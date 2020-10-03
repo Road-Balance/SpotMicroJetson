@@ -1,9 +1,7 @@
 """
-SpotMicroAI Simulation
+SpotMicroAI with Pybullet Simulation fully eliminated!!!
 """
-# pybullet fully eliminated!!!
 # import pybullet as p
-
 
 import sys
 sys.path.append("..")
