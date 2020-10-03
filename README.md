@@ -1,34 +1,11 @@
-# Custom version of BostonDynamics Spot robot
-
-![Logo](https://gitlab.com/custom_robots/spotmicroai/website/raw/master/docs/assets/logo.png)
-
-BostonDynamics Spot robot: https://www.youtube.com/watch?v=wlkCQXHEgjA
-
-Can you make it dance? join the challenge: https://www.youtube.com/watch?v=kHBcVlqpvZ8&list=PLp5v7U2tXHs3BYfe93GZwuUZLGsisapic&index=2
-
-Original idea by KDY0523 https://www.thingiverse.com/thing:3445283
-
-Some of the community videos: https://www.youtube.com/playlist?list=PLp5v7U2tXHs3BYfe93GZwuUZLGsisapic
-
-* Join us in Slack: https://spotmicroai-inviter.herokuapp.com/
-* Documentation: https://spotmicroai.readthedocs.io
-* Forum http://spotmicroai.org/
-
-This is the repository for simulation code, usually in combination with nVIDIA Jetson Nano board, of SpotMicro project.
-
-In here you can find all the project repositories: **https://gitlab.com/custom_robots/spotmicro**
-
-# Simulation code repository of SpotMicro project
-
-Note before you move one, this repo contains an initial step for the simulation in the platform created by Florian Wilk, but there are more project collaborators maintaining their own repos with different solutions:
-* Nicola Russo: https://github.com/nicrusso7/rex-gym
+# Custom version of BostonDynamics SpotMicroAI robot
 
 ## Abstract:
+
 The SpotMicroAI project is designed to be a low cost, easily built quadruped robot. The design is roughly based off of Boston Dynamics quadruped robot SpotMini, though with obvious adaptations such as size and sensor suite.
 
-The project is maintained by a community of volunteers and is very much still in its early stages. Any individual is welcome to contribute, and in particular expertise in areas involving simulation, reinforcement learning, and hardware development is greatly appreciated.
-
 ## Getting started:
+
 COMPLETE DOCUMENTATION AND GETTING STARTED GUIDES CAN BE FOUND AT:
 [https://spotmicroai.readthedocs.io/en/latest/](https://spotmicroai.readthedocs.io/en/latest/)
 
@@ -39,7 +16,7 @@ The best place to get started is to read the getting started documentation at [s
 For questions or more information please see the [Forums at SpotMicroAI.org](http://SpotMicroAI.org), or asked on slack. Join our slack at: [https://spotmicroai-inviter.herokuapp.com/](https://spotmicroai-inviter.herokuapp.com/)
 
 ## Hardware:
-![physial Bot](Images/SpotMicroAI_complete_1.jpg)
+![physial Bot](Images/Readme_Parts2.jpg)
 
 The hardware for SpotMicroAI is designed to be both aesthetically pleasing as well as easily obtainable and readily available. Wherever possible standard screws, bolts, and bearings are used. Standard hobby grade servos are currently used for locomotion in development however, they don't appear to have sufficient power to drive the robot at more than the slowest speeds. Other options are currently being investigated (including high-voltage and brushless hobby servos typically used with RC cars) which we hope will lead to a balance between an economical as well as robust robot.
 
@@ -63,7 +40,29 @@ Current efforts to develop the gait through reinforcement learning have taken pl
 
 ![PyBullet Simulation](Images/SpotMicroAI_pybullet_lidar3.png)
 
-## Community:
+---
+
+## Reference && Community
+
+![Logo](https://gitlab.com/custom_robots/spotmicroai/website/raw/master/docs/assets/logo.png)
+
+BostonDynamics Spot robot: https://www.youtube.com/watch?v=wlkCQXHEgjA
+
+Can you make it dance? join the challenge: https://www.youtube.com/watch?v=kHBcVlqpvZ8&list=PLp5v7U2tXHs3BYfe93GZwuUZLGsisapic&index=2
+
+Original idea by KDY0523 https://www.thingiverse.com/thing:3445283
+
+Some of the community videos: https://www.youtube.com/playlist?list=PLp5v7U2tXHs3BYfe93GZwuUZLGsisapic
+
+* Join us in Slack: https://spotmicroai-inviter.herokuapp.com/
+* Documentation: https://spotmicroai.readthedocs.io
+* Forum http://spotmicroai.org/
+
+This is the repository for simulation code, usually in combination with nVIDIA Jetson Nano board, of SpotMicro project.
+
+In here you can find all the project repositories: **https://gitlab.com/custom_robots/spotmicro**
+
+### Community:
 The primary community discussions take place on SpotMicro.org. The message boards there contain a repository of topics which span hardware and software.
 
 Real-time question-and-answer (or as close to real time as is possible when run by volunteers with full-time jobs and families) can happen on slack (LINK coming soon).
@@ -75,4 +74,3 @@ As a community we do have some small expenses such as web hosting fees and occas
 All donations stay in the community and go towards future development.
 
 If you use this worker will any work derived from it in academic publication please cite it as: *insert citation here*.
-
