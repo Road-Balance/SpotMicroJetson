@@ -7,7 +7,6 @@ from adafruit_servokit import ServoKit
 import board
 import busio
 import time
-# from approxeng.input.selectbinder import ControllerResource
 
 
 # On the Jetson Nano
@@ -18,6 +17,7 @@ print("Initializing Servos")
 i2c_bus0=(busio.I2C(board.SCL_1, board.SDA_1))
 print("Initializing ServoKit")
 kit = ServoKit(channels=16, i2c=i2c_bus0)
+
 # kit[0] is the bottom servo
 # kit[1] is the top servo
 print("Done initializing")
@@ -45,24 +45,3 @@ while 1:
     # for degree in sweep :
     #     kit.servo[5].angle=degree
     #     time.sleep(0.02)
-
-    
-# last_presses = None
-# while True:
-#        with ControllerResource() as joystick:
-#            print(type(joystick).__name__)
-#            while joystick.connected:
-#                 axis_list = [ 'lx', 'ry' ]
-#                 for axis_name in axis_list:
-#                     # desired_angle is in degrees
-#                     joystick_value = joystick[axis_name]
-#                     # The joystick value goes from -1.0 ... 1.0 (a range of 2)
-#                     # Normalize within a range of 180 degrees
-#                     desired_angle = (joystick_value+1)/2*180
-                    
-#                     if  axis_name == 'lx' :
-#                         kit.servo[0].angle=desired_angle
-#                         # print(axis_name, joystick[axis_name])
-                        
-#                     if axis_name == 'ry' :
-#                          kit.continuous_servo[1].throttle=joystick[axis_name]

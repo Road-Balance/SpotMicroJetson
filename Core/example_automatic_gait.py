@@ -3,7 +3,6 @@ Simulation of SpotMicroAI and it's Kinematics
 Use a keyboard to see how it works
 Use keyboard-Button to switch betweek walk on static-mode
 """
-
 import matplotlib.animation as animation
 import numpy as np
 import time
@@ -13,7 +12,7 @@ import random
 
 import kinematics as kn
 import spotmicroai
-import servo_controller
+# import servo_controller
 
 # from without_sim import spotmicroai
 
@@ -27,7 +26,7 @@ def reset():
     rtime=time.time()    
 
 robot=spotmicroai.Robot(False,False,reset)
-controller = servo_controller.Controllers()
+# controller = servo_controller.Controllers()
 
 # TODO: Needs refactoring
 speed1=240
@@ -129,8 +128,9 @@ def main():
         
         # First Step doesn't contains jointAngles
         if len(jointAngles):
-            # Handle Real Actuators
-            controller.servoRotate(jointAngles)
+            # Real Actuators
+            pass
+            # controller.servoRotate(jointAngles)
             
             # # Debugging
             # kn.initFK(jointAngles)

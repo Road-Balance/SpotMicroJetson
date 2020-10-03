@@ -22,19 +22,6 @@ kit = ServoKit(channels=16, i2c=i2c_bus0, address=0x40)
 # kit[1] is the top servo
 print("Done initializing")
 
-# while True:
-#     sweep = range(0,180)
-#     for degree in sweep :
-#         kit.servo[0].angle=degree
-#         # kit.servo[1].angle=degree
-#         time.sleep(0.01)
-
-#     time.sleep(0.5)
-#     sweep = range(180,0, -1)
-#     for degree in sweep :
-#         kit.servo[0].angle=degree
-#         time.sleep(0.01)
-
 # [0]~[2] : 왼쪽 앞 다리 // [3]~[5] : 오른쪽 앞 다리 // [6]~[8] : 왼쪽 뒷 다리 // [9]~[11] : 오른쪽 뒷 다리
 val_list = [0, 180, 90, 180, 0, 90, \
             0, 180, 90, 180, 0, 90]
@@ -63,5 +50,3 @@ while True:
         time.sleep(0.01)
 
     val_list[num] = offset
-
-
