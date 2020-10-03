@@ -107,8 +107,8 @@ def main(id, command_status):
             
             # # Plot Robot Pose into Matplotlib for Debugging
             # TODO: Matplotplib animation
-            kn.initFK(jointAngles)
-            kn.plotKinematics()
+            # kn.initFK(jointAngles)
+            # kn.plotKinematics()
 
         robot.step()
 
