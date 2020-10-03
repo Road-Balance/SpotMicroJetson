@@ -3,21 +3,24 @@ Simulation of SpotMicroAI and it's Kinematics
 Use a keyboard to see how it works
 Use keyboard-Button to switch betweek walk on static-mode
 """
+import sys
+sys.path.append("..")
+
 import matplotlib.animation as animation
 import numpy as np
 import time
 import math
 import datetime as dt
+import keyboard
 import random
 
-import kinematics as kn
+import Kinematics.kinematics as kn
 import spotmicroai
-import keyboard
 # import servo_controller
 
-from multiprocess_kb import KeyInterrupt
 from multiprocessing import Process
-from kinematicMotion import KinematicMotion, TrottingGait
+from Common.multiprocess_kb import KeyInterrupt
+from Kinematics.kinematicMotion import KinematicMotion, TrottingGait
 
 rtime=time.time()
 
@@ -104,8 +107,8 @@ def main(id, command_status):
             
             # # Plot Robot Pose into Matplotlib for Debugging
             # TODO: Matplotplib animation
-            # kn.initFK(jointAngles)
-            # kn.plotKinematics()
+            kn.initFK(jointAngles)
+            kn.plotKinematics()
 
         robot.step()
 
