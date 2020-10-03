@@ -15,17 +15,9 @@ import spotmicroai
 import keyboard
 # import servo_controller
 
-from multiprocessing import Process, Queue
+from multiprocess_kb import KeyInterrupt
+from multiprocessing import Process
 from kinematicMotion import KinematicMotion, TrottingGait
-
-
-
-# keyboard Initialisation
-# Dictionary of keyboard controller buttons we want to include.
-kb_default = {'w': 0, 'a': 0, 's': 0, 'd': 0, 'q': 0, 'e': 0}
-control_offset = {'IDstepLength': 0.0, 'IDstepWidth': 0.0, 'IDstepAlpha': 0.0}
-
-
 
 rtime=time.time()
 
@@ -65,7 +57,6 @@ Lp = np.array([[iXf, -100, spurWidth, 1], [iXf, -100, -spurWidth, 1],
 motion=KinematicMotion(Lp)
 resetPose()
 
-
 trotting=TrottingGait()
 
 def main(id, command_status):
@@ -103,7 +94,7 @@ def main(id, command_status):
 
         # Get current Angles for each motor
         jointAngles = robot.getAngle()
-        # print(jointAngles)
+        print(jointAngles)
         
         # First Step doesn't contains jointAngles
         if len(jointAngles):
@@ -118,82 +109,19 @@ def main(id, command_status):
 
         robot.step()
 
-
-def resetStatus(key_status):
-    result_dict = key_status.get()
-    key_status.put({'w': 0, 'a': 0, 's': 0, 'd': 0, 'q': 0, 'e': 0})
-
-def keyCounter(key_status, character):
-    result_dict = key_status.get()
-    result_dict[character] += 1
-    key_status.put(result_dict)
-
-def calcRbStep(key_status, command_status):
-    result_dict = key_status.get()
-    command_dict = command_status.get()
-    command_dict['IDstepLength'] = 10.0 * result_dict['s'] - 10.0 * result_dict['w']
-    command_dict['IDstepWidth'] = 5.0 * result_dict['d'] - 5.0 * result_dict['a']
-    command_dict['IDstepAlpha'] = 3.0 * result_dict['q'] - 3.0 * result_dict['e']
-
-    key_status.put(result_dict)
-    command_status.put(command_dict)
-
-
-def keyInterrupt(id, key_status, command_status):
-    was_pressed = False
-
-    while True:
-        if keyboard.is_pressed('w'):
-            if not was_pressed:
-                keyCounter(key_status, 'w')
-                was_pressed = True
-        elif keyboard.is_pressed('a'):
-            if not was_pressed:
-                keyCounter(key_status, 'a')
-                was_pressed = True
-        elif keyboard.is_pressed('s'):
-            if not was_pressed:
-                keyCounter(key_status, 's')
-                was_pressed = True
-        elif keyboard.is_pressed('d'):
-            if not was_pressed:
-                keyCounter(key_status, 'd')
-                was_pressed = True
-        elif keyboard.is_pressed('q'):
-            if not was_pressed:
-                keyCounter(key_status, 'q')
-                was_pressed = True
-        elif keyboard.is_pressed('e'):
-            if not was_pressed:
-                keyCounter(key_status, 'e')
-                was_pressed = True
-        elif keyboard.is_pressed('space'):
-            if not was_pressed:
-                resetStatus(key_status)
-                was_pressed = True
-        else:
-            was_pressed = False
-
-        calcRbStep(key_status, command_status)
-
 if __name__ == "__main__":
     try:
-
-        key_status = Queue()
-        key_status.put(kb_default)
-
-        command_status = Queue()
-        command_status.put(control_offset)
-
         # Keyboard input Process
-        KeyInterrupt = Process(target=keyInterrupt, args=(1, key_status, command_status))
-        KeyInterrupt.start()
+        KeyInputs = KeyInterrupt()
+        KeyProcess = Process(target=KeyInputs.keyInterrupt, args=(1, KeyInputs.key_status, KeyInputs.command_status))
+        KeyProcess.start()
 
-        main(1, command_status)
+        # Main Process 
+        main(2, KeyInputs.command_status)
         
-        print("terminate process")
-        if KeyInterrupt.is_alive():
-            KeyInterrupt.terminate()
+        print("terminate KeyBoard Input process")
+        if KeyProcess.is_alive():
+            KeyProcess.terminate()
     except Exception as e:
         print(e)
     finally:
