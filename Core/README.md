@@ -1,6 +1,6 @@
 ## SpotMicroAI Pybullet Simulation
 
-![auto_gait](https://user-images.githubusercontent.com/12381733/95225226-82c2e900-0836-11eb-99e6-3455246ae914.gif)
+![auto_gait](https://user-images.githubusercontent.com/12381733/95225571-e64d1680-0836-11eb-9077-2ad557a4aaf2.gif)
 
 
 ## Install Dependencies
