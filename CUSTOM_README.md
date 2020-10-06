@@ -1,2 +1,3 @@
 # SpotMicroJetson
-Le't's make SpotMicro with Nvidia Jetson Nano
+
+Let's make SpotMicro with Nvidia Jetson Nano
