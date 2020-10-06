@@ -4,6 +4,7 @@ You can get Keyboard inputs while running
 another endless Loops 
 '''
 
+import time
 import keyboard
 from multiprocessing import Process, Queue
 
@@ -97,7 +98,7 @@ def testWhile(id, command_status):
         result_dict = command_status.get()
         print(result_dict)
         command_status.put(result_dict)
-
+        time.sleep(1)
 
 # Basic Usage
 if __name__ == "__main__":
