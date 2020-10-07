@@ -16,7 +16,7 @@ import random
 
 import Kinematics.kinematics as kn
 import spotmicroai
-# import servo_controller
+import servo_controller
 
 from multiprocessing import Process
 from Common.multiprocess_kb import KeyInterrupt
@@ -29,7 +29,7 @@ def reset():
     rtime=time.time()    
 
 robot=spotmicroai.Robot(False,False,reset)
-# controller = servo_controller.Controllers()
+controller = servo_controller.Controllers()
 
 # TODO: Needs refactoring
 speed1=240
@@ -80,7 +80,7 @@ def main(id, command_status):
 
         # calculate robot step command from keyboard inputs
         result_dict = command_status.get()
-        print(result_dict)
+        # print(result_dict)
         command_status.put(result_dict)
 
         # wait 3 seconds to start
@@ -97,13 +97,12 @@ def main(id, command_status):
 
         # Get current Angles for each motor
         jointAngles = robot.getAngle()
-        print(jointAngles)
+        # print(jointAngles)
         
         # First Step doesn't contains jointAngles
         if len(jointAngles):
             # Real Actuators
-            pass
-            # controller.servoRotate(jointAngles)
+            controller.servoRotate(jointAngles)
             
             # # Plot Robot Pose into Matplotlib for Debugging
             # TODO: Matplotplib animation

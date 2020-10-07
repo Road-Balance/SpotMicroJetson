@@ -1,4 +1,7 @@
-import kinematics as kn
+import sys
+sys.path.append("..")
+
+import Kinematics.kinematics as kn
 import numpy as np
 from adafruit_servokit import ServoKit
 import board
@@ -94,10 +97,9 @@ class Controllers:
                 # for degree in sweep :
                 #     self._kit2.servo[x].angle = degree
                 #     time.sleep(0.01)
-                print(self._kit2.servo[x].angle)
-                self._kit2.servo[x].angle = self._val_list[x]
-            else:
                 self._kit.servo[x].angle = self._val_list[x]
+            else:
+                self._kit2.servo[x].angle = self._val_list[x]
 
 
 if __name__=="__main__":
@@ -115,4 +117,4 @@ if __name__=="__main__":
     print(svAngle)
 
     # #plot at the end
-    # kn.plotKinematics()
+    kn.plotKinematics()

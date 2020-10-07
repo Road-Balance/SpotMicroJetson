@@ -77,9 +77,9 @@ if __name__ == "__main__":
     try:
         servos=Servos()
         servos.setServoPositions([0 for _ in range(0,12)])
-        # for i in range(0, 4):
-        #     servos.setServoOffset(i, 0)
-        #     time.sleep(0.5)
+        for i in range(0, 4):
+            servos.setServoOffset(i, 0)
+            time.sleep(0.5)
 
         # print(servos.getServoOffset(0))
         # print(servos.getServoOffset(1))
