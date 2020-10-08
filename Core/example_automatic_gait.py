@@ -71,7 +71,7 @@ def consoleClear():
     else: 
         _ = system('clear') 
 
-IDheight = p.addUserDebugParameter("height", -40, 90, 40)
+IDheight = p.addUserDebugParameter("height", -40, 90, 20)
 # IDstepLength = p.addUserDebugParameter("step length", -150, 150, 0.0)
 
 Lp = np.array([[iXf, -100, spurWidth, 1], [iXf, -100, -spurWidth, 1],
@@ -106,7 +106,7 @@ def main(id, command_status):
         print(robot.getAngle())
 
         # wait 3 seconds to start
-        if d>3:
+        if result_dict['StartStepping']:
             robot.feetPosition(trotting.positions(d-3, result_dict))
         else:
             robot.feetPosition(Lp)

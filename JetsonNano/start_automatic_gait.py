@@ -52,7 +52,7 @@ walk=False
 
 def resetPose():
     # TODO: globals are bad
-    global joy_x, joy_z, joy_y, joy_rz,joy_z
+    global joy_x, joy_z, joy_y, joy_rz, joy_z
     joy_x, joy_y, joy_z, joy_rz = 128, 128, 128, 128
 
 # define our clear function 
@@ -88,7 +88,9 @@ def main(id, command_status):
         ir=xr/(math.pi/180)
         
         d=time.time()-rtime
-        height = 40 # p.readUserDebugParameter(IDheight)
+
+        # robot height
+        height = 20
 
         # calculate robot step command from keyboard inputs
         result_dict = command_status.get()
@@ -96,7 +98,7 @@ def main(id, command_status):
         command_status.put(result_dict)
 
         # wait 3 seconds to start
-        if d>3:
+        if result_dict['StartStepping']:
             # trotting.positions(d-3) values are end points for each legs
             robot.feetPosition(trotting.positions(d-3))
         else:

@@ -11,8 +11,8 @@ from multiprocessing import Process, Queue
 
 # keyboard Initialisation
 # Dictionary of keyboard controller buttons we want to include.
-key_value_default = {'w': 0, 'a': 0, 's': 0, 'd': 0, 'q': 0, 'e': 0}
-control_offset = {'IDstepLength': 0.0, 'IDstepWidth': 0.0, 'IDstepAlpha': 0.0}
+key_value_default = {'w': 0, 'a': 0, 's': 0, 'd': 0, 'q': 0, 'e': 0, 'move': False }
+control_offset = {'IDstepLength': 0.0, 'IDstepWidth': 0.0, 'IDstepAlpha': 0.0, 'StartStepping': False }
 
 class KeyInterrupt(): 
 
@@ -38,6 +38,7 @@ class KeyInterrupt():
     def keyCounter(self, character):
         result_dict = self.key_status.get()
         result_dict[character] += 1
+        result_dict['move'] = True
         self.key_status.put(result_dict)
 
     # Calculate Robot Velocity
@@ -48,6 +49,11 @@ class KeyInterrupt():
         command_dict['IDstepLength'] = self.X_STEP * result_dict['s'] - self.X_STEP * result_dict['w']
         command_dict['IDstepWidth'] = self.Y_STEP * result_dict['d'] - self.Y_STEP * result_dict['a']
         command_dict['IDstepAlpha'] = self.YAW_STEP * result_dict['q'] - self.YAW_STEP * result_dict['e']
+        
+        if result_dict['move']:
+            command_dict['StartStepping'] = True
+        else:
+            command_dict['StartStepping'] = False
 
         self.key_status.put(result_dict)
         self.command_status.put(command_dict)
