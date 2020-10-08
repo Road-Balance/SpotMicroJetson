@@ -3,6 +3,7 @@ Simulation of SpotMicroAI and it's Kinematics
 Use a keyboard to see how it works
 Use keyboard-Button to switch betweek walk on static-mode
 """
+from os import system, name 
 import sys
 sys.path.append("..")
 
@@ -59,6 +60,17 @@ def resetPose():
     global joy_x, joy_z, joy_y, joy_rz,joy_z
     joy_x, joy_y, joy_z, joy_rz = 128, 128, 128, 128
 
+# define our clear function 
+def consoleClear(): 
+  
+    # for windows 
+    if name == 'nt': 
+        _ = system('cls') 
+  
+    # for mac and linux(here, os.name is 'posix') 
+    else: 
+        _ = system('clear') 
+
 IDheight = p.addUserDebugParameter("height", -40, 90, 40)
 # IDstepLength = p.addUserDebugParameter("step length", -150, 150, 0.0)
 
@@ -91,6 +103,8 @@ def main(id, command_status):
         print(result_dict)
         command_status.put(result_dict)
 
+        print(robot.getAngle())
+
         # wait 3 seconds to start
         if d>3:
             robot.feetPosition(trotting.positions(d-3, result_dict))
@@ -102,6 +116,7 @@ def main(id, command_status):
         bodyX=50+yr*10
         robot.bodyPosition((bodyX, 40+height, -ir))
         robot.step()
+        consoleClear()
 
 if __name__ == "__main__":
     try:

@@ -3,6 +3,7 @@ Simulation of SpotMicroAI and it's Kinematics
 Use a keyboard to see how it works
 Use keyboard-Button to switch betweek walk on static-mode
 """
+from os import system, name 
 import sys
 sys.path.append("..")
 
@@ -54,6 +55,19 @@ def resetPose():
     global joy_x, joy_z, joy_y, joy_rz,joy_z
     joy_x, joy_y, joy_z, joy_rz = 128, 128, 128, 128
 
+# define our clear function 
+def consoleClear(): 
+  
+    # for windows 
+    if name == 'nt': 
+        _ = system('cls') 
+  
+    # for mac and linux(here, os.name is 'posix') 
+    else: 
+        _ = system('clear') 
+
+
+
 Lp = np.array([[iXf, -100, spurWidth, 1], [iXf, -100, -spurWidth, 1],
 [-50, -100, spurWidth, 1], [-50, -100, -spurWidth, 1]])
 
@@ -63,9 +77,7 @@ resetPose()
 trotting=TrottingGait()
 
 def main(id, command_status):
-
     jointAngles = []
-
     while True:
         xr = 0.0
         yr = 0.0
@@ -80,7 +92,7 @@ def main(id, command_status):
 
         # calculate robot step command from keyboard inputs
         result_dict = command_status.get()
-        # print(result_dict)
+        print(result_dict)
         command_status.put(result_dict)
 
         # wait 3 seconds to start
@@ -97,7 +109,7 @@ def main(id, command_status):
 
         # Get current Angles for each motor
         jointAngles = robot.getAngle()
-        # print(jointAngles)
+        print(jointAngles)
         
         # First Step doesn't contains jointAngles
         if len(jointAngles):
@@ -110,6 +122,8 @@ def main(id, command_status):
             # kn.plotKinematics()
 
         robot.step()
+        consoleClear()
+
 
 if __name__ == "__main__":
     try:

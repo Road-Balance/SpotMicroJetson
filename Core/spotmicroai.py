@@ -47,6 +47,11 @@ class Robot:
         self.kd = .4#.2
         self.maxForce = 25.0
 
+        self.angles = [0.0, 0.0, 0.0, \
+                        0.0, 0.0, 0.0,
+                        0.0, 0.0, 0.0,
+                        0.0, 0.0, 0.0]
+
         self.physId = p.connect(p.SHARED_MEMORY)
         if (self.physId < 0):
             p.connect(p.GUI)
@@ -256,6 +261,9 @@ class Robot:
         bodyPos,_=p.getBasePositionAndOrientation(self.quadruped)
         return bodyPos
 
+    def getAngle(self):
+        return self.angles
+
     def getIMU(self):
         _, bodyOrn = p.getBasePositionAndOrientation(self.quadruped)
         linearVel, angularVel = p.getBaseVelocity(self.quadruped)
@@ -286,7 +294,7 @@ class Robot:
             p.resetDebugVisualizerCamera(0.7,self.t*10,-5,bodyPos)
         
         # Calculate Angles with the input of FeetPos,BodyRotation and BodyPosition
-        angles = self.kin.calcIK(self.Lp, self.rot, self.pos)
+        self.angles = self.kin.calcIK(self.Lp, self.rot, self.pos)
 
         # list comprehension usage
         # [word for sentence in text for word in sentence]
@@ -298,7 +306,7 @@ class Robot:
                 p.setJointMotorControl2(bodyIndex=quadruped,
                                         jointIndex=j,
                                         controlMode=p.POSITION_CONTROL,
-                                        targetPosition=angles[lx][px]*self.dirs[lx][px],
+                                        targetPosition=self.angles[lx][px]*self.dirs[lx][px],
                                         positionGain=kp,
                                         velocityGain=kd,
                                         force=maxForce)  
