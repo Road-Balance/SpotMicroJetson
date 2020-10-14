@@ -24,6 +24,8 @@ The vast majority of the hardware by volume is designed to be 3D printed. So far
 
 The files available both as STL and STP. As a community we have not yet settled on a servo for this project and therefore multiple versions of the hardware exist to support the physical dimensions of the servos and their respective servo horns. For the most up-to-date version of the hardware please visit: [https://www.thingiverse.com/thing:3761340](https://www.thingiverse.com/thing:3761340). Please see documentation for details as to which files correspond to which servo.
 
+BOM for Korean Commerce is added and here's the [google spreadsheet link](https://docs.google.com/spreadsheets/d/1UIJ1a0tUQx4ky75Ovr97hnKy3tkcdXQCYJl6zFl0juA/edit?usp=sharing)
+
 ## Electronics:
 ![NVIDIA Jetson Nano](Images/SpotMicroAI_jetson.jpg)
 
