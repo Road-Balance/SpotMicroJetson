@@ -1,5 +1,7 @@
 # Custom version of BostonDynamics SpotMicroAI robot
 
+[Walking_Spot](./Images/SpotWalk.gif)
+
 ## Abstract:
 
 The SpotMicroAI project is designed to be a low cost, easily built quadruped robot. The design is roughly based off of Boston Dynamics quadruped robot SpotMini, though with obvious adaptations such as size and sensor suite.
