@@ -1,6 +1,6 @@
 # Custom version of BostonDynamics SpotMicroAI robot
 
-[Walking_Spot](./Images/SpotWalk.gif)
+![Walking_Spot](./Images/SpotWalk.gif)
 
 ## Abstract:
 
