@@ -124,13 +124,20 @@ class TrottingGait:
     def stepLength(self,len):
         self.Sl=len
 
-    def positions(self,t):
+    def positions(self,t,kb_offset={}):
         spf=self.Spf
         spr=self.Spr
         self.Sh=60.0
-        self.Sl=0.0
-        self.Sw=0.0
-        self.Sa=0.0
+
+        if list(kb_offset.values()) == [0.0, 0.0, 0.0]:
+            self.Sl=0.0
+            self.Sw=0.0
+            self.Sa=0.0
+        else:
+            self.Sl=kb_offset['IDstepLength']
+            self.Sw=kb_offset['IDstepWidth']
+            self.Sa=kb_offset['IDstepAlpha']
+
         self.t0=0.0
         self.t1=510.0
         self.t2=0.0

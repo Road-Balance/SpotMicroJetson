@@ -78,6 +78,7 @@ trotting=TrottingGait()
 
 def main(id, command_status):
     jointAngles = []
+    tic = time.time()
     while True:
         xr = 0.0
         yr = 0.0
@@ -90,7 +91,7 @@ def main(id, command_status):
         d=time.time()-rtime
 
         # robot height
-        height = 20
+        height = 40
 
         # calculate robot step command from keyboard inputs
         result_dict = command_status.get()
@@ -100,7 +101,13 @@ def main(id, command_status):
         # wait 3 seconds to start
         if result_dict['StartStepping']:
             # trotting.positions(d-3) values are end points for each legs
-            robot.feetPosition(trotting.positions(d-3, result_dict))
+            currentLp = trotting.positions(d-3, result_dict)
+            robot.feetPosition(currentLp)
+            # # Plot Robot Pose into Matplotlib for Debugging
+            # TODO: Matplotplib animation
+            print(currentLp)
+            # kn.initIK(currentLp)
+            # kn.plotKinematics()
         else:
             robot.feetPosition(Lp)
         #roll=-xr
@@ -111,20 +118,22 @@ def main(id, command_status):
 
         # Get current Angles for each motor
         jointAngles = robot.getAngle()
-        print(jointAngles)
-        
+        if len(jointAngles) > 0:
+            print(jointAngles[0])
+            print(len(jointAngles))
+         
         # First Step doesn't contains jointAngles
         if len(jointAngles):
             # Real Actuators
             controller.servoRotate(jointAngles)
             
-            # # Plot Robot Pose into Matplotlib for Debugging
-            # TODO: Matplotplib animation
-            # kn.initFK(jointAngles)
-            # kn.plotKinematics()
-
         robot.step()
         consoleClear()
+        
+        toc = time.time()
+        time_delta = tic - toc
+        print(f'FPS : {time_delta}')
+        tic = toc
 
 
 if __name__ == "__main__":

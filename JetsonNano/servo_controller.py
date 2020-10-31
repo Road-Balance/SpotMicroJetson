@@ -99,7 +99,7 @@ class Controllers:
         #BR Shoulder, Formula flipped from the front
         self._val_list[11] = self._servo_offsets[11] + self._thetas[3][0]     
 
-        print(f'_val_list _ 1 : {self._val_list}')
+        # print(f'_val_list _ 1 : {self._val_list}')
 
 
     def getServoAngles(self):
@@ -108,12 +108,12 @@ class Controllers:
     def servoRotate(self, thetas):
         self.angleToServo(thetas)
         for x in range(len(self._val_list)):
-            self._servos[x].angle = int(self._val_list[x])
+            self._servos[x].angle = float(self._val_list[x])
 
 if __name__=="__main__":
     legEndpoints=np.array([[100,-100,87.5,1],[100,-100,-87.5,1],[-100,-100,87.5,1],[-100,-100,-87.5,1]])
-    #thetas = kn.initIK(legEndpoints) #radians
-    thetas = np.array([[0, 0, 0],[0, 0, 0],[0, 0, 0],[0, 0, 0]], dtype=np.float64)
+    thetas = kn.initIK(legEndpoints) #radians
+    # thetas = np.array([[0, 0, 0],[0, 0, 0],[0, 0, 0],[0, 0, 0]], dtype=np.float64)
     controller = Controllers()
 
     # Get radian thetas, transform to integer servo angles
