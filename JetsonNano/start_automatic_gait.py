@@ -99,7 +99,8 @@ def main(id, command_status):
 
         # wait 3 seconds to start
         if result_dict['StartStepping']:
-            robot.feetPosition(trotting.positions(d-3))
+            currentLp = trotting.positions(d-3, result_dict)
+            robot.feetPosition(currentLp)
         else:
             robot.feetPosition(Lp)
         #roll=-xr
