@@ -21,7 +21,7 @@ class Controllers:
         #1 by 12 array
         self.MOTOR_LEG_FRONT = 0
         self.MOTOR_LEG_BACK = 6
-        self.MOTOR_LEG_LEFT = 0
+        self.MOTOR_LEG_LEFT = 0 
         self.MOTOR_LEG_RIGHT = 3
         self.MOTOR_LEG_SHOULDER = 2
         self.MOTOR_LEG_UPPER = 1
@@ -38,8 +38,10 @@ class Controllers:
 
         # [0]~[2] : 왼쪽 앞 다리 // [3]~[5] : 오른쪽 앞 다리 // [6]~[8] : 왼쪽 뒷 다리 // [9]~[11] : 오른쪽 뒷 다리
         # centered position perpendicular to the ground
-        self._servo_offsets = [170, 60, 90, 10, 120, 90,
-                    170, 60, 90, 10, 120, 90]
+        self._servo_offsets = [180, 90, 90, 1, 90, 90,
+                    180, 90, 90, 1, 90, 90]
+                # [170, 60, 90, 10, 120, 90,
+                #     170, 60, 90, 10, 120, 90]
 
         self._val_list = [ x for x in range(12) ]
 
@@ -92,11 +94,18 @@ class Controllers:
         self.angleToServo(thetas)
 
         for x in range(len(self._val_list)):
+            # for cali
+            # self._val_list = self._servo_offsets
+            
+            if (self._val_list[x] > 180):
+                print("Over 180!!")
+                return
+                # self._val_list[x] = 179
+            if (self._val_list[x] <= 0):
+                print("Under 0!!")
+                return
+                # self._val_list[x] = 1
             if x < 6:
-                # sweep = range(current_value, aim_value, -1/+1)
-                # for degree in sweep :
-                #     self._kit2.servo[x].angle = degree
-                #     time.sleep(0.01)
                 self._kit.servo[x].angle = self._val_list[x]
             else:
                 self._kit2.servo[x].angle = self._val_list[x]

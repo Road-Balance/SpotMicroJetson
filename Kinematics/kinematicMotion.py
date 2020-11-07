@@ -72,13 +72,13 @@ class TrottingGait:
         self.maxSl=2
         self.bodyPos=(0,100,0)
         self.bodyRot=(0,0,0)
-        self.t0=0 # senseless i guess
-        self.t1=510
-        self.t2=00
-        self.t3=185
+        self.t0=200 #0 # senseless i guess
+        self.t1=500 #510
+        self.t2=200 #0
+        self.t3=500
         self.Sl=0.0
         self.Sw=0
-        self.Sh=60
+        self.Sh=100
         self.Sa=0
         self.Spf=87
         self.Spr=77
@@ -127,7 +127,7 @@ class TrottingGait:
     def positions(self,t,kb_offset={}):
         spf=self.Spf
         spr=self.Spr
-        self.Sh=60.0
+        # self.Sh=60.0
 
         if list(kb_offset.values()) == [0.0, 0.0, 0.0]:
             self.Sl=0.0
@@ -138,10 +138,6 @@ class TrottingGait:
             self.Sw=kb_offset['IDstepWidth']
             self.Sa=kb_offset['IDstepAlpha']
 
-        self.t0=0.0
-        self.t1=510.0
-        self.t2=0.0
-        self.t3=185.0
         Tt=(self.t0+self.t1+self.t2+self.t3)
         Tt2=Tt/2
         rd=0 # rear delta - unused - maybe stupid
