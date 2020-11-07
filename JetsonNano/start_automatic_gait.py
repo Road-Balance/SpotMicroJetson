@@ -99,7 +99,6 @@ def main(id, command_status):
 
         # wait 3 seconds to start
         if result_dict['StartStepping']:
-            # trotting.positions(d-3) values are end points for each legs
             robot.feetPosition(trotting.positions(d-3))
         else:
             robot.feetPosition(Lp)
