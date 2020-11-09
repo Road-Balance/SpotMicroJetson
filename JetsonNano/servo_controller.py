@@ -36,8 +36,11 @@ class Controllers:
         self.SIM_LEG_THETA2 = 1
         self.SIM_LEG_THETA3 = 2
 
-        # [0]~[2] : 왼쪽 앞 다리 // [3]~[5] : 오른쪽 앞 다리 // [6]~[8] : 왼쪽 뒷 다리 // [9]~[11] : 오른쪽 뒷 다리
-        # centered position perpendicular to the ground
+        # [0]~[2] : Left Front // [3]~[5] : Right Front // [6]~[8] : Left Rear // [9]~[11] : Right Rear
+        # centered position perpendicular to the ground.
+        # Lower-Upper-Shoulder order
+        # left to clockwise, right to counter-clockwise, seen from left
+        # actual offset for installation will be
         self._servo_offsets = [180, 90, 90, 1, 90, 90,
                     180, 90, 90, 1, 90, 90]
                 # [170, 60, 90, 10, 120, 90,
