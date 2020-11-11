@@ -69,16 +69,17 @@ Each leg has the following "states"
 class TrottingGait:
     
     def __init__(self):
+        self.step_gain = 0.8
         self.maxSl=2
         self.bodyPos=(0,100,0)
         self.bodyRot=(0,0,0)
-        self.t0=200 #0 # senseless i guess
-        self.t1=500 #510
-        self.t2=200 #0
-        self.t3=500
+        self.t0=200 * self.step_gain #0 # senseless i guess
+        self.t1=500 * self.step_gain #510
+        self.t2=200 * self.step_gain #0
+        self.t3=500 * self.step_gain
         self.Sl=0.0
         self.Sw=0
-        self.Sh=100
+        self.Sh=30 #100
         self.Sa=0
         self.Spf=87
         self.Spr=77

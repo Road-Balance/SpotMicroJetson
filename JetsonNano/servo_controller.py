@@ -38,17 +38,15 @@ class Controllers:
 
         # [0]~[2] : 왼쪽 앞 다리 // [3]~[5] : 오른쪽 앞 다리 // [6]~[8] : 왼쪽 뒷 다리 // [9]~[11] : 오른쪽 뒷 다리
         # centered position perpendicular to the ground
-        self._servo_offsets = [180, 90, 90, 1, 90, 90,
-                    180, 90, 90, 1, 90, 90]
-                # [170, 60, 90, 10, 120, 90,
-                #     170, 60, 90, 10, 120, 90]
+        self._servo_offsets = [180, 90, 90, 1, 90, 90, 180, 90, 90, 1, 90, 90]
+        #self._servo_offsets = [90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90]
 
-        self._val_list = [ x for x in range(12) ]
+        self._val_list = np.zeros(12) #[ x for x in range(12) ]
 
         # All Angles for Leg 3 * 4 = 12 length
         self._thetas = []
 
-    def getRadianAngles(self, La):
+    def getDegreeAngles(self, La):
         # radian to degree
         La *= 180/np.pi
         La = [ [ int(x) for x in y ] for y in La ]
@@ -57,7 +55,8 @@ class Controllers:
 
     # Angle mapping from radian to servo angles
     def angleToServo(self, La):
-        self.getRadianAngles(La)
+
+        self.getDegreeAngles(La)
 
         #FL Lower
         self._val_list[0] = self._servo_offsets[0] - self._thetas[0][2]
@@ -92,23 +91,27 @@ class Controllers:
 
     def servoRotate(self, thetas):
         self.angleToServo(thetas)
-
+        #self.angleToServo(np.zeros((4,3)))
         for x in range(len(self._val_list)):
-            # for cali
-            # self._val_list = self._servo_offsets
             
-            if (self._val_list[x] > 180):
-                print("Over 180!!")
-                return
-                # self._val_list[x] = 179
-            if (self._val_list[x] <= 0):
-                print("Under 0!!")
-                return
-                # self._val_list[x] = 1
-            if x < 6:
-                self._kit.servo[x].angle = self._val_list[x]
-            else:
-                self._kit2.servo[x].angle = self._val_list[x]
+            if x>=0 and x<12:
+                self._val_list[x] = (self._val_list[x]-26.36)*(1980/1500)
+                #print(self._val_list[x], end=' ')
+                #if x%3 == 2: print()
+                print(self._val_list[x])
+
+                if (self._val_list[x] > 180):
+                    print("Over 180!!")
+                    self._val_list[x] = 179
+                    continue
+                if (self._val_list[x] <= 0):
+                    print("Under 0!!")
+                    self._val_list[x] = 1
+                    continue
+                if x < 6:
+                    self._kit.servo[x].angle = self._val_list[x]
+                else:
+                    self._kit2.servo[x].angle = self._val_list[x]
 
 
 if __name__=="__main__":
