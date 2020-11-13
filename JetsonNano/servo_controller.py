@@ -38,7 +38,7 @@ class Controllers:
 
         # [0]~[2] : 왼쪽 앞 다리 // [3]~[5] : 오른쪽 앞 다리 // [6]~[8] : 왼쪽 뒷 다리 // [9]~[11] : 오른쪽 뒷 다리
         # centered position perpendicular to the ground
-        self._servo_offsets = [180, 90, 90, 1, 90, 90, 180, 90, 90, 1, 90, 90]
+        self._servo_offsets = [170, 85, 90, 1, 95, 90, 172, 90, 90, 1, 90, 95]
         #self._servo_offsets = [90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90]
 
         self._val_list = np.zeros(12) #[ x for x in range(12) ]
