@@ -57,8 +57,6 @@ stepHeight=72
 iXf=120
 iXb=-132
 
-
-
 IDspurWidth = p.addUserDebugParameter("spur width", 0, robot.W, spurWidth)
 IDstepHeight = p.addUserDebugParameter("step height", 0, 150, stepHeight)
 IDheight = p.addUserDebugParameter("height", -40, 90, 20)

@@ -145,7 +145,6 @@ class Robot:
                                 useMaximalCoordinates=True)
                 p.changeVisualShape(s, -1, textureUniqueId=atexUid)
 
-
     def loadModels(self):
         p.configureDebugVisualizer(p.COV_ENABLE_RENDERING, 0)
         p.setGravity(0, 0, -9.81)
@@ -205,7 +204,6 @@ class Robot:
             for x in self.oldDebugInfo:
                 p.removeUserDebugItem(x)
         self.oldDebugInfo=newDebugInfo
-
 
     def handleCamera(self,cubePos, cubeOrn):
 
