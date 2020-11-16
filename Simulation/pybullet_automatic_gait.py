@@ -19,11 +19,12 @@ from environment import environment
 import pybullet as p
 import pybullet_data
 
-import Kinematics.kinematics as kn
 import spotmicroai
 
 from multiprocessing import Process
 from Common.multiprocess_kb import KeyInterrupt
+
+import kinematics as kn
 from kinematicMotion import KinematicMotion, TrottingGait
 
 rtime=time.time()
