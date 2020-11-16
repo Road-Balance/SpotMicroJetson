@@ -1,12 +1,52 @@
-# Custom version of BostonDynamics SpotMicroAI robot
+# SpotMicroAI - Road Balance version
 
-![Walking_Spot](./Images/SpotWalk.gif)
+![SpotForward](Images/SpotForward.gif)
 
 ## Abstract:
 
-The SpotMicroAI project is designed to be a low cost, easily built quadruped robot. The design is roughly based off of Boston Dynamics quadruped robot SpotMini, though with obvious adaptations such as size and sensor suite.
+Let's build quadruped robot. Only requires few low-cost parts and this repository :)
 
-## Getting started:
+## Hardware:
+
+<center>
+    <img src="./Images/Readme_Parts2.jpg" width="50%" height="50%">
+</center>
+
+The hardware for SpotMicroAI is designed to be both aesthetically pleasing as well as easily obtainable and readily available. Wherever possible standard screws, bolts, and bearings are used. Standard hobby grade servos are currently used for locomotion in development however, they don't appear to have sufficient power to drive the robot at more than the slowest speeds. Other options are currently being investigated (including high-voltage and brushless hobby servos typically used with RC cars) which we hope will lead to a balance between an economical as well as robust robot.
+
+The vast majority of the hardware by volume is designed to be 3D printed. So far complete prints have been successful in PLA, though no technical barriers should exist to printing the robot in other material such as PETG, nylon, ABS, etc. The majority of parts require significant supports to print.
+
+The files available both as STL and STP. As a community we have not yet settled on a servo for this project and therefore multiple versions of the hardware exist to support the physical dimensions of the servos and their respective servo horns. For the most up-to-date version of the hardware please visit: [https://www.thingiverse.com/thing:3761340](https://www.thingiverse.com/thing:3761340). Please see documentation for details as to which files correspond to which servo.
+
+> BOM for Korean Commerce is added and here's the [google spreadsheet link](https://docs.google.com/spreadsheets/d/1UIJ1a0tUQx4ky75Ovr97hnKy3tkcdXQCYJl6zFl0juA/edit?usp=sharing)
+
+## Electronics:
+
+<center>
+    <img src="./Images/SpotMicroAI_electronics.png" width="50%" height="50%">
+</center>
+
+The `Jetson Nano` operates at 5v, and the `PCA9658` for driving the servomotor operates at 6v. In this project, the electronic department was constructed using 7.9v LiPo batteries and `LM2596` DC Converter.
+
+
+## PyBullet Simulation:
+![PyBullet Simulation](Images/SpotMicroAI_Pybullet_RB.png)
+
+Before making the actual robot, we recommend experimenting with the kinematics and walking mechanism of the robot through simulation, and added a simulated environment built with pybullets to this end.
+
+The walking mechanism can be understood through the adjustment of several parameters in simulation, and SpotMicro can also be controlled by the keyboard.
+
+## Real Robots
+
+![SkyWalk](Images/SkyWalk.gif)
+
+Finally, it's time to have a real robot and run it. Before uploading and operating the software after assembly, the debugging points such as calibration, center of gravity, and component placement of servo motor are organized and written in Readme file.
+
+---
+
+## Reference && Community
+
+This repository originally forked from [FlorianWilk's Jetson Nano SpotMicro Project](https://github.com/FlorianWilk/SpotMicroAI)
 
 COMPLETE DOCUMENTATION AND GETTING STARTED GUIDES CAN BE FOUND AT:
 [https://spotmicroai.readthedocs.io/en/latest/](https://spotmicroai.readthedocs.io/en/latest/)
@@ -16,37 +56,6 @@ COMPLETE DOCUMENTATION AND GETTING STARTED GUIDES CAN BE FOUND AT:
 The best place to get started is to read the getting started documentation at [spotmicroai.readthedocs.io](spotmicroai.readthedocs.io). The documentation will eventually contain a complete tutorial for building a SpotMicroAI including where to source components, links to most recent 3D files for printing, assembly, and installing the software. It's being updated as we go.
 
 For questions or more information please see the [Forums at SpotMicroAI.org](http://SpotMicroAI.org), or asked on slack. Join our slack at: [https://spotmicroai-inviter.herokuapp.com/](https://spotmicroai-inviter.herokuapp.com/)
-
-## Hardware:
-![physial Bot](Images/Readme_Parts2.jpg)
-
-The hardware for SpotMicroAI is designed to be both aesthetically pleasing as well as easily obtainable and readily available. Wherever possible standard screws, bolts, and bearings are used. Standard hobby grade servos are currently used for locomotion in development however, they don't appear to have sufficient power to drive the robot at more than the slowest speeds. Other options are currently being investigated (including high-voltage and brushless hobby servos typically used with RC cars) which we hope will lead to a balance between an economical as well as robust robot.
-
-The vast majority of the hardware by volume is designed to be 3D printed. So far complete prints have been successful in PLA, though no technical barriers should exist to printing the robot in other material such as PETG, nylon, ABS, etc. The majority of parts require significant supports to print.
-
-The files available both as STL and STP. As a community we have not yet settled on a servo for this project and therefore multiple versions of the hardware exist to support the physical dimensions of the servos and their respective servo horns. For the most up-to-date version of the hardware please visit: [https://www.thingiverse.com/thing:3761340](https://www.thingiverse.com/thing:3761340). Please see documentation for details as to which files correspond to which servo.
-
-BOM for Korean Commerce is added and here's the [google spreadsheet link](https://docs.google.com/spreadsheets/d/1UIJ1a0tUQx4ky75Ovr97hnKy3tkcdXQCYJl6zFl0juA/edit?usp=sharing)
-
-## Electronics:
-![NVIDIA Jetson Nano](Images/SpotMicroAI_jetson.jpg)
-
-The brain of this project is designed to be powered by a Raspberry Pi 4. The Pi is connected to a PCA9685 controller board which allows communication to the 12 servos required to articulate the hips and legs.
-
-Sensors include a raspberry pi camera, MPU6050 Gyro accelerometer combination, and several ultrasound sensors. Some users have also integrated a RPiLIDAR A1 into their build.
-
-## Software:
-![ROS](Images/SpotMicroAI_rviz_urdf.png)
-
-the software in this project is still very immature. Current experience has focused on running C++ directly on the Jetson and preliminary tests have occurred with robot operating system (ROS). The current work has focused on developing a robust gate for the robot and so work on other aspects such as navigation path planning but have not yet started.
-
-Current efforts to develop the gait through reinforcement learning have taken place in the PyBullet. Preliminary work in open AI gym has begun. There has also been discussion about using unity as a platform for reinforcement learning, in particular to be able to utilize the advanced graphics in the game engine for image recognition training on the RPi cam.
-
-![PyBullet Simulation](Images/SpotMicroAI_pybullet_lidar3.png)
-
----
-
-## Reference && Community
 
 ![Logo](https://gitlab.com/custom_robots/spotmicroai/website/raw/master/docs/assets/logo.png)
 
