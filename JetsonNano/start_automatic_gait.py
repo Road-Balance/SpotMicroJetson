@@ -78,7 +78,6 @@ trotting=TrottingGait()
 
 def main(id, command_status):
     jointAngles = []
-    tic = time.time()
     while True:
         xr = 0.0
         yr = 0.0
@@ -112,22 +111,20 @@ def main(id, command_status):
 
         # Get current Angles for each motor
         jointAngles = robot.getAngle()
-        if len(jointAngles) > 0:
-            print(jointAngles[0])
-            print(len(jointAngles))
-         
+        print(jointAngles)
+        
         # First Step doesn't contains jointAngles
         if len(jointAngles):
             # Real Actuators
             controller.servoRotate(jointAngles)
             
+            # # Plot Robot Pose into Matplotlib for Debugging
+            # TODO: Matplotplib animation
+            # kn.initFK(jointAngles)
+            # kn.plotKinematics()
+
         robot.step()
         consoleClear()
-        
-        toc = time.time()
-        time_delta = tic - toc
-        print(f'FPS : {time_delta}')
-        tic = toc
 
 
 if __name__ == "__main__":
