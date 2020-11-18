@@ -1,4 +1,5 @@
-from adafruit_servokit import ServoKit
+from adafruit_pca9685 import PCA9685
+from adafruit_motor import servo
 import board
 import busio
 import time
@@ -11,23 +12,27 @@ print("Initializing Servos")
 i2c_bus0=(busio.I2C(board.SCL_1, board.SDA_1))
 print("Initializing ServoKit")
 
-kit = list()
-kit.append(ServoKit(channels=16, i2c=i2c_bus0, address=0x40))
-# kit.append(ServoKit(channels=16, i2c=i2c_bus0, address=0x41)) 
+pca = list()
+pca.append(PCA9685(self._i2c_bus0, address=0x40))
+# pca.append(PCA9685(self._i2c_bus0, address=0x41))
 
-# kit[0] is the front servos
-# kit[1] is the rear servos
+# pca[0] is the front servos
+# pca[1] is the rear servos
 print("Done initializing")
 
 # [0]~[2] : FL // [3]~[5] : FR // [6]~[8] : RL // [9]~[11] : RR
-val_list = [90]
+val_list = [90, 90]
 # val_list = [90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90]
 
+servos = list()
+for i in range(len(val_list)):
+    servos.append(servo.Servo(pca[int(i/6)].channels[int(i%6)], min_pulse=460, max_pulse=2440))
+    # servos.append(servo.Servo(pca[int(i/6)].channels[int(i%6)], min_pulse=771, max_pulse=2740))
 
 
 if __name__ == '__main__':
-    for x in range(len(val_list)):
-        kit[int(x/6)].servo[int(x%6)].angle = val_list[x]
+    for i in range(len(val_list)):
+        servos[i].angle = val_list[i]
 
     while True:
         # num is index of motor to rotate
@@ -40,7 +45,7 @@ if __name__ == '__main__':
         # increase(decrease) prev_angle to angle by 1 degree
         sweep = range(prev_angle, angle, 1) if (prev_angle < angle) else range(prev_angle, angle, -1)
         for degree in sweep:
-            kit[int(num/6)].servo[int(num%6)].angle=degree
+            servo[i].angle=degree
             time.sleep(0.01)
 
         val_list[num] = angle
