@@ -19,7 +19,7 @@ print("Initializing ServoKit")
 
 kit = list()
 kit.append(ServoKit(channels=16, i2c=i2c_bus0, address=0x40))
-# kit.append(ServoKit(channels=16, i2c=i2c_bus0, address=0x41))
+# kit.append(ServoKit(channels=16, i2c=i2c_bus0, address=0x41)) 
 
 # kit[0] is the front servos
 # kit[1] is the rear servos
