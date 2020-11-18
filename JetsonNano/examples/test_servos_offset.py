@@ -13,8 +13,10 @@ i2c_bus0=(busio.I2C(board.SCL_1, board.SDA_1))
 print("Initializing ServoKit")
 
 pca = list()
-pca.append(PCA9685(self._i2c_bus0, address=0x40))
-# pca.append(PCA9685(self._i2c_bus0, address=0x41))
+pca.append(PCA9685(i2c_bus0, address=0x40))
+pca[-1].frequency = 60
+# pca.append(PCA9685(i2c_bus0, address=0x41))
+# pca[-1].frequency = 60
 
 # pca[0] is the front servos
 # pca[1] is the rear servos
@@ -45,7 +47,7 @@ if __name__ == '__main__':
         # increase(decrease) prev_angle to angle by 1 degree
         sweep = range(prev_angle, angle, 1) if (prev_angle < angle) else range(prev_angle, angle, -1)
         for degree in sweep:
-            servo[i].angle=degree
+            servos[num].angle=degree
             time.sleep(0.01)
 
         val_list[num] = angle
