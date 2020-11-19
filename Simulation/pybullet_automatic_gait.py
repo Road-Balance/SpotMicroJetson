@@ -40,7 +40,7 @@ def resetPose():
     joy_x, joy_y, joy_z, joy_rz = 128, 128, 128, 128
 
 # define our clear function 
-def consoleClear(): 
+def consoleClear():
 
     # for windows 
     if name == 'nt': 
@@ -58,8 +58,6 @@ stepHeight=72
 iXf=120
 iXb=-132
 
-IDspurWidth = p.addUserDebugParameter("spur width", 0, robot.W, spurWidth)
-IDstepHeight = p.addUserDebugParameter("step height", 0, 150, stepHeight)
 IDheight = p.addUserDebugParameter("height", -40, 90, 20)
 IDstepLength = p.addUserDebugParameter("step length", -150, 150, 0.0)
 
