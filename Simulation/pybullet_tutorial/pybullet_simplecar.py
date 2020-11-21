@@ -10,7 +10,7 @@ from time import sleep
 physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
-p.setGravity(0, 0, -10)
+p.setGravity(0, 0, -9.8)
 
 # Sliders are added to our GUI view that allow us to dynamically
 # input values to our program through the simulation. 

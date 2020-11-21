@@ -50,7 +50,7 @@ def consoleClear():
     else: 
         _ = system('clear') 
 
-robot=spotmicroai.Robot(False,True,reset)
+robot=spotmicroai.Robot(True,True,reset)
 
 spurWidth=robot.W/2+20
 stepLength=0
@@ -59,7 +59,6 @@ iXf=120
 iXb=-132
 
 IDheight = p.addUserDebugParameter("height", -40, 90, 20)
-IDstepLength = p.addUserDebugParameter("step length", -150, 150, 0.0)
 
 Lp = np.array([[iXf, -100, spurWidth, 1], [iXf, -100, -spurWidth, 1],
 [-50, -100, spurWidth, 1], [-50, -100, -spurWidth, 1]])
