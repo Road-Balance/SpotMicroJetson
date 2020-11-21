@@ -1,5 +1,5 @@
 """
-Reference : http://blog.naver.com/einsbon/221549883110
+Reference from : http://blog.naver.com/einsbon/221549883110
 """
 
 import pybullet as p
