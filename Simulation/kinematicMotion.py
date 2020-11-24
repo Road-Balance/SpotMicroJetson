@@ -108,8 +108,8 @@ class TrottingGait:
     calculates the Lp - LegPosition for the configured gait for time t and original Lp of x,y,z
     """
     def calcLeg(self,t,x,y,z):
-        startLp=np.array([x-self.Sl/2.0,y,z-self.Sw,1])
-        endLp=np.array([x+self.Sl/2,y,z+self.Sw,1])
+        startLp=np.array([x-self.Sl/2.0,y,z-self.Sw/2,1])
+        endLp=np.array([x+self.Sl/2,y,z+self.Sw/2,1])
         
         if(t<self.t0): # stay on ground
             print("stay")
@@ -160,13 +160,15 @@ class TrottingGait:
         self.t1=p.readUserDebugParameter(self.IDt1)
         self.t2=p.readUserDebugParameter(self.IDt2)
         self.t3=p.readUserDebugParameter(self.IDt3)
+
         Tt=(self.t0+self.t1+self.t2+self.t3)
         Tt2=Tt/2
-        rd=0 # rear delta - unused - maybe stupid
+
         td=(t*1000)%Tt
         t2=(t*1000-Tt2)%Tt
-        rtd=(t*1000-rd)%Tt # rear time delta
-        rt2=(t*1000-Tt2-rd)%Tt
+        rtd=(t*1000)%Tt
+        rt2=(t*1000-Tt2)%Tt
+        
         Fx=p.readUserDebugParameter(self.IDfrontOffset)
         Rx=-p.readUserDebugParameter(self.IDrearOffset)
 
