@@ -109,27 +109,29 @@ class TrottingGait:
     """
     def calcLeg(self,t,x,y,z):
         startLp=np.array([x-self.Sl/2.0,y,z-self.Sw,1])
-        endY=0 #-0.8 # delta y to jump a bit before lifting legs
-        endLp=np.array([x+self.Sl/2,y+endY,z+self.Sw,1])
+        endLp=np.array([x+self.Sl/2,y,z+self.Sw,1])
         
-        if(t<self.t0): # TODO: remove t0 and t2 - not practical
+        if(t<self.t0): # stay on ground
+            print("stay")
             return startLp
         elif(t<self.t0+self.t1): # drag foot over ground
-
+            print("drag")
             td=t-self.t0
             tp=1/(self.t1/td)
             diffLp=endLp-startLp
             curLp=startLp+diffLp*tp
-            psi=-((math.pi/180*self.Sa)/2)+(math.pi/180*self.Sa)*tp
+
+            psi=(math.pi/180*self.Sa)*tp
             Ry = np.array([[np.cos(psi),0,np.sin(psi),0],
                     [0,1,0,0],
                     [-np.sin(psi),0,np.cos(psi),0],[0,0,0,1]])
-            #Tlm = np.array([[0,0,0,-self.Rc[0]],[0,0,0,-self.Rc[1]],[0,0,0,-self.Rc[2]],[0,0,0,0]])
             curLp=Ry.dot(curLp)
             return curLp
-        elif(t<self.t0+self.t1+self.t2):
+        elif(t<self.t0+self.t1+self.t2): # stay on ground again
+            print("stay")
             return endLp
         elif(t<self.t0+self.t1+self.t2+self.t3): # Lift foot
+            print("lift")
             td=t-(self.t0+self.t1+self.t2)
             tp=1/(self.t3/td)
             diffLp=startLp-endLp
@@ -146,7 +148,6 @@ class TrottingGait:
         self.Sh=p.readUserDebugParameter(self.IDstepHeight)
         
         # Pybullet
-        # TODO: Check this works on desktop
         if list(kb_offset.values()) == [0.0, 0.0, 0.0]:
             self.Sl=p.readUserDebugParameter(self.IDstepLength)
             self.Sw=p.readUserDebugParameter(self.IDstepWidth)
@@ -168,8 +169,9 @@ class TrottingGait:
         rt2=(t*1000-Tt2-rd)%Tt
         Fx=p.readUserDebugParameter(self.IDfrontOffset)
         Rx=-p.readUserDebugParameter(self.IDrearOffset)
+
+        print(td, t2, rt2, rtd)
         Fy=-100
         Ry=-100
         r=np.array([self.calcLeg(td,Fx,Fy,spf),self.calcLeg(t2,Fx,Fy,-spf),self.calcLeg(rt2,Rx,Ry,spr),self.calcLeg(rtd,Rx,Ry,-spr)])
-        #print(r)
         return r

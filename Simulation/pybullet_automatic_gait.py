@@ -66,9 +66,7 @@ IDstepLength = p.addUserDebugParameter("step length", -150, 150, 0.0)
 Lp = np.array([[iXf, -100, spurWidth, 1], [iXf, -100, -spurWidth, 1],
 [-50, -100, spurWidth, 1], [-50, -100, -spurWidth, 1]])
 
-motion=KinematicMotion(Lp)
 resetPose()
-
 trotting=TrottingGait()
 
 def main(id, command_status):
@@ -96,18 +94,17 @@ def main(id, command_status):
 
         print(robot.getAngle())
 
-        # wait 3 seconds to start
         if result_dict['StartStepping']:
             robot.feetPosition(trotting.positions(d-3, result_dict))
         else:
             robot.feetPosition(Lp)
-        #roll=-xr
+
         roll=0
         robot.bodyRotation((roll,math.pi/180*((joy_x)-128)/3,-(1/256*joy_y-0.5)))
 
         bodyX=50+yr*10
-        
         robot.bodyPosition((bodyX, 40+height, -ir))
+
         robot.step()
         consoleClear()
 
