@@ -20,17 +20,20 @@ def work(id, start, end, result):
 if __name__ == "__main__":
     START, END = 0, 100000000
     result = Queue()
-    th1 = Process(target=work, args=(1, START, END//2, result))
-    th2 = Process(target=work, args=(2, END//2, END, result))
+    pc1 = Process(target=work, args=(1, START, END//2, result))
+    pc2 = Process(target=work, args=(2, END//2, END, result))
     
     start = time.time()
-    th1.start()
-    th2.start()
-    th1.join()
-    th2.join()
+    pc1.start()
+    pc2.start()
+    pc1.join()
+    pc2.join()
 
+    print("time :", time.time() - start)
+    
     result.put('STOP')
     total = 0
+
     while True:
         tmp = result.get()
         if tmp == 'STOP':
@@ -38,6 +41,5 @@ if __name__ == "__main__":
         else:
             total += tmp
     
-print(f"Result: {total}")
-print("time :", time.time() - start)
+    print(f"Result: {total}")
 
