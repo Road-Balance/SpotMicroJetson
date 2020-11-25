@@ -165,15 +165,36 @@ class TrottingGait:
         Tt2=Tt/2
 
         td=(t*1000)%Tt
-        t2=(t*1000-Tt2)%Tt
-        rtd=(t*1000)%Tt
-        rt2=(t*1000-Tt2)%Tt
+        rtd=(t*1000-Tt2)%Tt
         
         Fx=p.readUserDebugParameter(self.IDfrontOffset)
         Rx=-p.readUserDebugParameter(self.IDrearOffset)
 
-        print(td, t2, rt2, rtd)
         Fy=-100
         Ry=-100
-        r=np.array([self.calcLeg(td,Fx,Fy,spf),self.calcLeg(t2,Fx,Fy,-spf),self.calcLeg(rt2,Rx,Ry,spr),self.calcLeg(rtd,Rx,Ry,-spr)])
+
+        # front left / front right / rear left / rear right
+        r=np.array([self.calcLeg(td,Fx,Fy,spf),self.calcLeg(rtd,Fx,Fy,-spf),self.calcLeg(rtd,Rx,Ry,spr),self.calcLeg(td,Rx,Ry,-spr)])
+
+        # Cat Trotting Example
+        Tt4=Tt/4
+
+        """
+        How can implement cat Trotting??
+        """
+
         return r
+
+
+
+
+
+
+
+        # td=(t*1000)%Tt # front left
+        # td2=(t*1000-Tt4*2)%Tt # front right
+        # rtd=(t*1000-Tt4*1)%Tt # rear left
+        # rtd2=(t*1000-Tt4*3)%Tt # rear right
+
+        # r=np.array([self.calcLeg(td,Fx,Fy,spf),self.calcLeg(td2,Fx,Fy,-spf),self.calcLeg(rtd,Rx,Ry,spr),self.calcLeg(rtd2,Rx,Ry,-spr)])
+
