@@ -8,13 +8,12 @@ import time
 import keyboard
 from multiprocessing import Process, Queue
 
-
 # keyboard Initialisation
 # Dictionary of keyboard controller buttons we want to include.
 key_value_default = {'w': 0, 'a': 0, 's': 0, 'd': 0, 'q': 0, 'e': 0, 'move': False }
 control_offset = {'IDstepLength': 0.0, 'IDstepWidth': 0.0, 'IDstepAlpha': 0.0, 'StartStepping': False }
 
-class KeyInterrupt(): 
+class KeyInterrupt():
 
     def __init__(self): 
         # How many times Keys Pushed
