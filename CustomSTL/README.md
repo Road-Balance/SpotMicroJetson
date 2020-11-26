@@ -6,3 +6,8 @@ Based on Parent Repo, We Customized...
 - Motor Connection Parts
 
 ![All Parts](../Images/STL_Parts.jpg)
+
+# Explanation for Each parts
+
+* 우측 앞다리 발(손목) (R_wrist_cls)
+
