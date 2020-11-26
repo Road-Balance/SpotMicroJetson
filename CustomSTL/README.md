@@ -1,4 +1,4 @@
-## 3D STL Files for Jetson Nano andf CLS6336hv Motor
+## 3D STL Files for Jetson Nano and CLS6336hv Motor
 
 Based on Parent Repo, We Customized...
 
