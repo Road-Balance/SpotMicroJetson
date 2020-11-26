@@ -15,13 +15,14 @@ import datetime as dt
 import keyboard
 import random
 
-import Kinematics.kinematics as kn
 import spotmicroai
-import servo_controller
 
 from multiprocessing import Process
 from Common.multiprocess_kb import KeyInterrupt
-from Kinematics.kinematicMotion import KinematicMotion, TrottingGait
+
+from Kinematics.kinematicMotion import TrottingGait
+
+import servo_controller
 
 rtime=time.time()
 
@@ -71,9 +72,7 @@ def consoleClear():
 Lp = np.array([[iXf, -100, spurWidth, 1], [iXf, -100, -spurWidth, 1],
 [-50, -100, spurWidth, 1], [-50, -100, -spurWidth, 1]])
 
-motion=KinematicMotion(Lp)
 resetPose()
-
 trotting=TrottingGait()
 
 def main(id, command_status):
@@ -120,8 +119,6 @@ def main(id, command_status):
             
             # # Plot Robot Pose into Matplotlib for Debugging
             # TODO: Matplotplib animation
-            # kn.initFK(jointAngles)
-            # kn.plotKinematics()
 
         robot.step()
         consoleClear()

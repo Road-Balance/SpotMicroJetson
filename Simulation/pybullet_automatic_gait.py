@@ -7,7 +7,6 @@ from os import system, name
 import sys
 sys.path.append("..")
 
-import matplotlib.animation as animation
 import numpy as np
 import time 
 import math
@@ -17,15 +16,13 @@ import random
 
 from environment import environment
 import pybullet as p
-import pybullet_data
 
 import spotmicroai
 
 from multiprocessing import Process
 from Common.multiprocess_kb import KeyInterrupt
 
-import kinematics as kn
-from kinematicMotion import KinematicMotion, TrottingGait
+from kinematicMotion import TrottingGait
 
 rtime=time.time()
 env=environment()
