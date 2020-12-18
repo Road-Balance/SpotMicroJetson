@@ -8,12 +8,12 @@ First of all all prepare your Jetson Nano as you see in the NVIDIA Documentation
 Then connect to it via SSH and:
 
 ```
-sudo apt install python-dev python-pip python3-pip libfreetype6-dev libavdevice-dev libavfilter-dev libswscale-dev libavformat-dev libjpeg-dev build-essential
-sudo apt install libsdl-dev libportmidi-dev libsdl-ttf2.0-dev libsdl-mixer1.2-dev libsdl-image1.2-dev
+$ sudo apt install python-dev python-pip python3-pip libfreetype6-dev libavdevice-dev libavfilter-dev libswscale-dev libavformat-dev libjpeg-dev build-essential -y
+$ sudo apt install libsdl-dev libportmidi-dev libsdl-ttf2.0-dev libsdl-mixer1.2-dev libsdl-image1.2-dev -y 
 
-git clone https://github.com/FlorianWilk/SpotMicroAI.git
-cd SpotMiroAI/JetsonNano
-sudo apt-get install python3 python3-pip
-pip3 install -U -r requirements.txt 
-python3 boot.py
+$ pip install --upgrade pip
+$ pip install --upgrade setuptools
+
+$ cd SpotMiroAI/JetsonNano
+$ pip3 install -U -r requirements.txt 
 ```
