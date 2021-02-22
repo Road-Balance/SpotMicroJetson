@@ -1,6 +1,5 @@
 # SpotMicroAI - Road Balance version
 
-## 윤요한 연습
 
 ![SpotForward](Images/SpotForward.gif)
 
