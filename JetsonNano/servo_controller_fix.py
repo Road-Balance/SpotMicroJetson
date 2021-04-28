@@ -104,10 +104,8 @@ class Controllers:
             if (self._val_list[x] <= 0):
                 print("Under 0!!")
                 self._val_list[x] = 1
-            if x < 6:
-                self._kit.servo[x].angle = self._val_list[x]
-            else:
-                self._kit2.servo[x].angle = self._val_list[x]
+                
+            self._servos[x].angle = float(self._val_list[x])
 
 
 if __name__=="__main__":
