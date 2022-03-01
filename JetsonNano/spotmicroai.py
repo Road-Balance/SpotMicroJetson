@@ -16,7 +16,7 @@ class RobotState(Enum):
     OFF = 0     # don't do anything
     READY = 1   # compact, legs together, waiting
     STAND = 2   # standing, feet to the ground
-    TROTTING_GAIT=3 # legs alway moving up/down 0/3,1/2 / 2 Step
+    TROTTING_GAIT=3 # legs away moving up/down 0/3,1/2 / 2 Step
     CRAWL = 4   # 4 Stepped, 1,2,3,0
     CRAWL2 = 5  #4 Stepped, Back first, 2,1,3,0
 
